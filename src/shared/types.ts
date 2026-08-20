@@ -21,6 +21,45 @@ export const DEFAULT_PRIORITY: Priority = "Should";
 export const ROLES = ["SA", "UX", "Dev", "Tester"] as const;
 export type Role = (typeof ROLES)[number];
 
+/**
+ * M02 — ช่วงงานของ Task
+ *
+ * แยก Development (งานสร้างของใหม่ จบเป็นรอบ) ออกจาก Maintenance (งานแก้ของเดิม
+ * เข้าเรื่อยๆ) เพราะสองแบบนี้บริหารและวัดผลต่างกัน
+ */
+export const TASK_PHASES = ["Development", "Maintenance"] as const;
+export type TaskPhase = (typeof TASK_PHASES)[number];
+
+/**
+ * M02 — รูปแบบการทำงานของ Task
+ *
+ * Sequential = ต้องรอคิว, Parallel = ทำคู่ขนานกับงานอื่นได้, Independent = ไม่พึ่งใคร
+ */
+export const WORK_PATTERNS = ["Sequential", "Parallel", "Independent"] as const;
+export type WorkPattern = (typeof WORK_PATTERNS)[number];
+
+/**
+ * M02 — ที่มาของกำหนดส่ง
+ *
+ * Committed = ทีมตกลงเอง, Imposed = ถูกกำหนดมาจากข้างบนโดยไม่ได้ตกลงด้วย
+ * การแยกสองค่านี้คือการแยกความรับผิดชอบของความล่าช้า
+ */
+export const DEADLINE_TYPES = ["Committed", "Imposed"] as const;
+export type DeadlineType = (typeof DEADLINE_TYPES)[number];
+
+/**
+ * M02 — สาเหตุของความล่าช้า
+ *
+ * ใช้ระบุว่าความล่าช้าควรเป็นความรับผิดชอบของใคร: ตัวเอง (Self), คนที่บล็อคอยู่
+ * (Blocked), requirement เปลี่ยน (Req Change) หรือปัจจัยนอกทีม (External)
+ */
+export const DELAY_CAUSES = ["Self", "Blocked", "Req Change", "External"] as const;
+export type DelayCause = (typeof DELAY_CAUSES)[number];
+
+/** M02 — สถานะการอนุมัติเอกสารส่งมอบของ SA */
+export const APPROVAL_STATUSES = ["Pending", "Approved", "Rejected"] as const;
+export type ApprovalStatus = (typeof APPROVAL_STATUSES)[number];
+
 /** FR3.2 — ประเภทของ Defect ทั้ง 5 ค่า ใช้ระบุต้นน้ำของปัญหา */
 export const DEFECT_TYPES = [
   "Code Bug",
@@ -52,9 +91,48 @@ export interface Task {
   /** FR2.2 — Task ทุกตัวต้องผูกกับ Requirement ห้ามลอย */
   requirementId: string;
   assigneeId: string;
-  /** FR2.3 — ตำแหน่งของผู้รับผิดชอบ */
+  /** FR2.3 — ตำแหน่งของผู้รับผิดชอบ และเป็นตัวกำหนดว่าต้องกรอก field ใดเพิ่ม */
   role: Role;
   createdAt: string;
+
+  // ---------- M02 — field ที่ทุก Task ต้องมี ----------
+
+  /** M02 — Development หรือ Maintenance */
+  phase: TaskPhase;
+  /** M02 — Sequential / Parallel / Independent */
+  workPattern: WorkPattern;
+  /** M02 — กำหนดส่งนี้ทีมตกลงเองหรือถูกสั่งมา */
+  deadlineType: DeadlineType;
+  /** M02 — id ของ Task ที่บล็อคงานนี้อยู่ (dependency) ห้ามวนกลับ */
+  blockedByIds: string[];
+
+  // ---------- M02 — field ที่ระบุเมื่อมีข้อมูล ----------
+
+  /** M02 — กำหนดส่งในรูปแบบ YYYY-MM-DD */
+  dueDate?: string;
+  /** M02 — วันที่ทำเสร็จในรูปแบบ YYYY-MM-DD ยังไม่เสร็จคือไม่มีค่า */
+  completedAt?: string;
+  /** M02 — บังคับระบุเมื่อส่งช้ากว่ากำหนด */
+  delayCause?: DelayCause;
+  /** M02 — ประมาณการเริ่มต้นเป็นชั่วโมง ใช้คู่กับ actualHours เพื่อหา variance */
+  initialEstimateHours?: number;
+  /** M02 — เวลาที่ใช้จริงเป็นชั่วโมง */
+  actualHours?: number;
+
+  // ---------- M02 — conditional fields ตามตำแหน่ง ----------
+
+  /** SA เท่านั้น — ส่งมอบอะไร (spec doc, flow diagram, data dictionary) */
+  deliverable?: string;
+  /** SA เท่านั้น — เอกสารที่ยังไม่ approve ถือว่างานยังไม่จบ */
+  approvalStatus?: ApprovalStatus;
+  /** UX เท่านั้น — ลิงก์งานออกแบบ เป็นหลักฐานการส่งมอบ */
+  figmaLink?: string;
+  /** UX เท่านั้น — จำนวนรอบที่แก้แบบ */
+  revisionCount?: number;
+  /** Tester เท่านั้น — จำนวน test case ที่ผ่าน */
+  passCount?: number;
+  /** Tester เท่านั้น — จำนวน test case ที่ไม่ผ่าน */
+  failCount?: number;
 }
 
 export interface Defect {

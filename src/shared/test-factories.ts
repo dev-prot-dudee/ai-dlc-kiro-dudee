@@ -36,6 +36,11 @@ export function makeTask(overrides: Partial<Task> = {}): Task {
     assigneeId: "user-1",
     role: "Dev",
     createdAt: "2026-01-01T00:00:00.000Z",
+    // M02 — field บังคับของ Task ทุกตัว ค่าเริ่มต้นตรงกับ TASK_DEFAULTS
+    phase: "Development",
+    workPattern: "Independent",
+    deadlineType: "Committed",
+    blockedByIds: [],
     ...overrides,
   };
 }

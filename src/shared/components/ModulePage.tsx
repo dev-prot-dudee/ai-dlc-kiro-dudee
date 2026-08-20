@@ -42,6 +42,13 @@ export interface ModulePageConfig<T extends Entity> {
   detail: (item: T) => DetailRow[];
   /** ส่วนแสดงสายเชื่อมโยงในหน้ารายละเอียด */
   traceSections?: (item: T) => { title: string; body: ReactNode }[];
+  /**
+   * แถบแจ้งเตือนบนสุดของหน้ารายการ
+   *
+   * ใช้กับเรื่องที่ต้องเห็นก่อนเปิดการ์ดใดๆ เช่น PM alert ของ Task ที่ถูกบล็อค
+   * (M02) module ที่ไม่ต้องการก็ไม่ต้องส่งอะไรมา
+   */
+  banner?: ReactNode;
   renderForm: (args: {
     existing?: T;
     groupKey?: string;
@@ -209,6 +216,8 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
           <p>{error}</p>
         </div>
       )}
+
+      {config.banner}
 
       <div className="view-bar">
         <ViewTabs value={view} onChange={setView} />

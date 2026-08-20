@@ -9,7 +9,6 @@
 html,
 body,
 #root {
-  height: 100%;
   margin: 0;
 }
 
@@ -35,16 +34,36 @@ button {
 
 /* ---------- เปลือกหน้าจอ ---------- */
 
+/*
+ * ทั้งแอปมี scroll แนวตั้งได้ที่เดียวคือหน้าต่างเบราว์เซอร์
+ *
+ * เดิมพื้นที่เนื้อหาเป็น scroll container ของตัวเอง (.main สูงเท่าจอ +
+ * .main__scroll overflow:auto) ซึ่งทำให้เกิด scrollbar แนวตั้งซ้อนกันสองอันที่
+ * ขอบขวา และล้อเมาส์ต้องเดาว่าจะเลื่อนอันไหน เลื่อนแล้วสะดุด
+ *
+ * ตอนนี้เนื้อหาไหลไปตามความสูงของตัวเองและปล่อยให้หน้าเลื่อน ส่วน sidebar ใช้
+ * position: sticky เพื่อให้ยังติดอยู่กับจอเหมือนเดิม
+ */
 .app-shell {
   display: flex;
-  height: 100%;
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
 /* ---------- Sidebar ---------- */
 
+/*
+ * sidebar ติดจอด้วย sticky และสูงเท่าจอ
+ *
+ * overflow-y: auto ไว้เผื่อจอเตี้ยมากจนเมนูล้น กรณีนั้นจะเลื่อนเฉพาะในตัวเอง
+ * โดยไม่ส่งการเลื่อนต่อไปที่หน้า (overscroll-behavior)
+ */
 .sidebar {
   width: var(--sidebar-width);
   flex: 0 0 var(--sidebar-width);
+  position: sticky;
+  top: 0;
+  height: 100vh;
   background: var(--color-bg-sidebar);
   border-right: 1px solid var(--color-border);
   padding: var(--space-3);
@@ -52,6 +71,7 @@ button {
   flex-direction: column;
   gap: var(--space-5);
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .sidebar__brand {
@@ -120,14 +140,10 @@ button {
 .main {
   flex: 1 1 auto;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
 }
 
+/* ชื่อ class เดิมคงไว้ — ตอนนี้เป็นแค่กรอบระยะขอบของเนื้อหา ไม่ใช่ scroll area */
 .main__scroll {
-  flex: 1 1 auto;
-  overflow: auto;
   padding: 0 var(--space-8) var(--space-8);
 }
 
@@ -432,6 +448,8 @@ button {
 }
 
 input[type="text"],
+input[type="number"],
+input[type="date"],
 textarea,
 select {
   font-family: inherit;
@@ -444,10 +462,85 @@ select {
   width: 100%;
 }
 
+/* ---------- กลุ่ม field ในฟอร์ม (M02) ---------- */
+
+/* field ของ M02 มีจำนวนมาก จึงจัดเป็นกลุ่มตามเรื่องเพื่อให้กรอกเร็วและไม่หลง */
+/* min-width: 0 กัน min-width อัตโนมัติของ fieldset ที่ทำให้เนื้อหายาวดัน
+   ความกว้างเกินฟอร์มจนเกิด scrollbar แนวนอนขึ้นมาอีกอัน */
+.form__group {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form__group-title {
+  font-weight: var(--weight-semibold);
+  padding: 0 var(--space-2);
+}
+
+/*
+ * รายการติ๊กเลือกไหลไปตามความสูงของเนื้อหา ไม่มี max-height และไม่มี overflow
+ * ของตัวเอง
+ *
+ * เหตุผล: ทั้งหน้ามี scroll แนวตั้งได้ที่เดียวคือหน้าต่างเบราว์เซอร์ การใส่ scroll
+ * ซ้อนในฟอร์มทำให้มี scrollbar สองอันและล้อเมาส์เลื่อนกล่องในก่อนแล้วค่อยกระโดดไป
+ * เลื่อนหน้า ซึ่งเลื่อนแล้วสะดุด รายการที่ยาวแก้ด้วยการจัดเป็นหลายคอลัมน์แทน
+ */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-1) var(--space-3);
+}
+
+.checklist__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.checklist__item:hover {
+  background: var(--color-hover);
+}
+
+.checklist__item input[type="checkbox"] {
+  width: auto;
+  margin-top: 3px;
+  flex: 0 0 auto;
+}
+
+/*
+ * ช่องรายละเอียดโตตามเนื้อหา ไม่มี scroll ของตัวเอง
+ *
+ * เดิมเป็นกล่องสูงคงที่ ตอนกดแก้ไขข้อความเดิมจะถูกเติมเข้ามาจนเกินความสูง
+ * กล่องจึงมี scrollbar ของตัวเองซ้อนกับ scrollbar ของหน้า และล้อเมาส์จะเลื่อน
+ * ในกล่องก่อนแล้วกระโดดไปเลื่อนหน้าเมื่อชนขอบ
+ *
+ * field-sizing รองรับใน Chromium 123+ ส่วนเบราว์เซอร์ที่ยังไม่รองรับจะยังมี
+ * scroll ในกล่องได้ overscroll-behavior จึงกันการเลื่อนต่อไปที่หน้าไว้ด้วย
+ * max-height กันกล่องยาวเกินจอเมื่อข้อความยาวมาก
+ */
 textarea {
   min-height: 90px;
+  max-height: 50vh;
   resize: vertical;
+  field-sizing: content;
+  overscroll-behavior: contain;
 }
+
+/* scroll region เดียวที่เหลือคือ sidebar — จัดการ overscroll ไว้ในกฎของตัวเองแล้ว */
 
 .form__actions {
   display: flex;
@@ -567,6 +660,42 @@ textarea {
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-small);
   margin-bottom: var(--space-4);
+}
+
+/* ---------- PM alert (M02) ---------- */
+
+/*
+ * ใช้พื้นส้มไม่ใช่พื้นแดง เพราะงานที่ติดบล็อคเป็นเรื่องที่ต้องจัดการ ไม่ใช่
+ * ความผิดพลาดของระบบ สีแดงสงวนไว้ให้ error จริง (NFR5 — สีไม่ใช่ตัวสื่อความหมาย
+ * เพียงอย่างเดียว หัวข้อและตัวเลขกำกับไว้เป็นตัวอักษรเสมอ)
+ */
+.pm-alert {
+  background: var(--status-orange-bg);
+  border: 1px solid var(--status-orange-dot);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pm-alert__title {
+  margin: 0;
+  font-size: var(--text-section);
+  font-weight: var(--weight-semibold);
+}
+
+.pm-alert__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.pm-alert__heading {
+  margin: 0;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-small);
 }
 
 .visually-hidden {
