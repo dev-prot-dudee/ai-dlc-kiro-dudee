@@ -1,151 +1,214 @@
 *** Settings ***
-Library    Browser
+Library    SeleniumLibrary
 
 *** Variables ***
 ${BASE_URL}    http://localhost:5173
-${BROWSER}     chromium
+${BROWSER}     chrome
 
 *** Keywords ***
 Open Application
     [Documentation]    เปิดแอปพลิเคชันในเบราว์เซอร์
-    New Browser    ${BROWSER}    headless=true
-    New Page    ${BASE_URL}
+    Open Browser    ${BASE_URL}    ${BROWSER}
+    Maximize Browser Window
+    Wait Until Element Is Visible    css:[data-testid="nav-requirements"]    timeout=10s
 
 Close Application
     [Documentation]    ปิดเบราว์เซอร์
-    Close Browser
+    Close All Browsers
 
 Navigate To Requirement Page
     [Documentation]    ไปยังหน้าจัดการ Requirement
-    Click    text=Requirement
+    Click Element    css:[data-testid="nav-requirements"]
+    Wait Until Element Is Visible    css:h1
 
 Navigate To Task Page
     [Documentation]    ไปยังหน้าจัดการ Task
-    Click    text=Task
+    Click Element    css:[data-testid="nav-tasks"]
+    Wait Until Element Is Visible    css:h1
 
 Navigate To Defect Page
     [Documentation]    ไปยังหน้าจัดการ Defect
-    Click    text=Defect
+    Click Element    css:[data-testid="nav-defects"]
+    Wait Until Element Is Visible    css:h1
 
-Click Create Button
+Click New Button
     [Documentation]    คลิกปุ่มสร้างรายการใหม่
-    Click    button >> text=Create
+    Click Element    css:[data-testid="toolbar-new"]
 
-Click Save Button
-    [Documentation]    คลิกปุ่มบันทึก
-    Click    button >> text=Save
+Switch To List View
+    [Documentation]    สลับไปมุมมองตาราง
+    Click Element    css:[data-testid="view-tab-list"]
 
-Click Edit Button
-    [Documentation]    คลิกปุ่มแก้ไข
-    Click    button >> text=Edit
-
-Click Delete Button
-    [Documentation]    คลิกปุ่มลบ
-    Click    button >> text=Delete
-
-Confirm Delete
-    [Documentation]    ยืนยันการลบในกล่องยืนยัน
-    Click    button >> text=Confirm
-
-Cancel Delete
-    [Documentation]    ยกเลิกการลบในกล่องยืนยัน
-    Click    button >> text=Cancel
-
-Fill Title Field
-    [Documentation]    กรอกชื่อเรื่อง
+# ===== Requirement Form =====
+Fill Requirement Title
+    [Documentation]    กรอกหัวข้อ Requirement
     [Arguments]    ${title}
-    Fill Text    input[name="title"]    ${title}
+    Input Text    css:[data-testid="req-title"]    ${title}
 
-Fill Description Field
-    [Documentation]    กรอกรายละเอียด
-    [Arguments]    ${description}
-    Fill Text    textarea[name="description"]    ${description}
-
-Select Category
-    [Documentation]    เลือกหมวดหมู่
+Select Requirement Category
+    [Documentation]    เลือกประเภท Requirement
     [Arguments]    ${category}
-    Select Options By    select[name="category"]    text    ${category}
+    Select From List By Value    css:[data-testid="req-category"]    ${category}
 
-Select Priority
-    [Documentation]    เลือกลำดับความสำคัญ
+Select Requirement Priority
+    [Documentation]    เลือกระดับความสำคัญ
     [Arguments]    ${priority}
-    Select Options By    select[name="priority"]    text    ${priority}
+    Select From List By Value    css:[data-testid="req-priority"]    ${priority}
 
-Fill Owner Field
-    [Documentation]    กรอกชื่อเจ้าของ
-    [Arguments]    ${owner}
-    Fill Text    input[name="owner"]    ${owner}
+Submit Requirement Form
+    [Documentation]    กดบันทึก Requirement
+    Click Element    css:[data-testid="req-submit"]
 
-Fill Assignee Field
-    [Documentation]    กรอกชื่อผู้รับผิดชอบ
-    [Arguments]    ${assignee}
-    Fill Text    input[name="assignee"]    ${assignee}
+Create Requirement
+    [Documentation]    สร้าง Requirement ครบวงจร
+    [Arguments]    ${title}    ${category}=Functional    ${priority}=Should
+    Click New Button
+    Fill Requirement Title    ${title}
+    Select Requirement Category    ${category}
+    Select Requirement Priority    ${priority}
+    Submit Requirement Form
+    Wait Until Element Is Visible    css:.board-card__title    timeout=5s
 
-Select Role
-    [Documentation]    เลือกบทบาท
+# ===== Task Form =====
+Fill Task Title
+    [Documentation]    กรอกหัวข้อ Task
+    [Arguments]    ${title}
+    Input Text    css:[data-testid="task-title"]    ${title}
+
+Select Task Requirement
+    [Documentation]    เลือก Requirement ต้นทาง (เลือกจากข้อความที่เห็น)
+    [Arguments]    ${requirement_text}
+    ${options}=    Get WebElements    css:[data-testid="task-requirement"] option
+    FOR    ${option}    IN    @{options}
+        ${text}=    Get Text    ${option}
+        ${contains}=    Run Keyword And Return Status    Should Contain    ${text}    ${requirement_text}
+        IF    ${contains}
+            ${value}=    Get Element Attribute    ${option}    value
+            Select From List By Value    css:[data-testid="task-requirement"]    ${value}
+            RETURN
+        END
+    END
+    Fail    ไม่พบตัวเลือก "${requirement_text}" ใน dropdown
+
+Select Task Role
+    [Documentation]    เลือกตำแหน่งผู้รับผิดชอบ
     [Arguments]    ${role}
-    Select Options By    select[name="role"]    text    ${role}
+    Select From List By Value    css:[data-testid="task-role"]    ${role}
 
-Select Requirement
-    [Documentation]    เลือก Requirement ที่เชื่อมโยง
-    [Arguments]    ${requirement}
-    Select Options By    select[name="requirement"]    text    ${requirement}
+Submit Task Form
+    [Documentation]    กดบันทึก Task
+    Click Element    css:[data-testid="task-submit"]
 
-Select Task
-    [Documentation]    เลือก Task ที่เชื่อมโยง
-    [Arguments]    ${task}
-    Select Options By    select[name="task"]    text    ${task}
+Create Task
+    [Documentation]    สร้าง Task ครบวงจร
+    [Arguments]    ${title}    ${requirement_text}    ${role}=Dev
+    Click New Button
+    Fill Task Title    ${title}
+    Select Task Requirement    ${requirement_text}
+    Select Task Role    ${role}
+    Submit Task Form
+    Wait Until Element Is Visible    css:.board-card__title    timeout=5s
+
+# ===== Defect Form =====
+Fill Defect Title
+    [Documentation]    กรอกหัวข้อ Defect
+    [Arguments]    ${title}
+    Input Text    css:[data-testid="defect-title"]    ${title}
+
+Select Defect Task
+    [Documentation]    เลือก Task ต้นทาง (เลือกจากข้อความที่เห็น)
+    [Arguments]    ${task_text}
+    ${options}=    Get WebElements    css:[data-testid="defect-task"] option
+    FOR    ${option}    IN    @{options}
+        ${text}=    Get Text    ${option}
+        ${contains}=    Run Keyword And Return Status    Should Contain    ${text}    ${task_text}
+        IF    ${contains}
+            ${value}=    Get Element Attribute    ${option}    value
+            Select From List By Value    css:[data-testid="defect-task"]    ${value}
+            RETURN
+        END
+    END
+    Fail    ไม่พบตัวเลือก "${task_text}" ใน dropdown
 
 Select Defect Type
     [Documentation]    เลือกประเภท Defect
     [Arguments]    ${type}
-    Select Options By    select[name="type"]    text    ${type}
+    Select From List By Value    css:[data-testid="defect-type"]    ${type}
 
-Select Severity
-    [Documentation]    เลือกระดับความรุนแรง
+Select Defect Severity
+    [Documentation]    เลือกความรุนแรง
     [Arguments]    ${severity}
-    Select Options By    select[name="severity"]    text    ${severity}
+    Select From List By Value    css:[data-testid="defect-severity"]    ${severity}
 
-Fill Reporter Field
-    [Documentation]    กรอกชื่อผู้รายงาน
-    [Arguments]    ${reporter}
-    Fill Text    input[name="reporter"]    ${reporter}
+Submit Defect Form
+    [Documentation]    กดบันทึก Defect
+    Click Element    css:[data-testid="defect-submit"]
 
-Fill Search Field
-    [Documentation]    กรอกข้อความค้นหา
+Create Defect
+    [Documentation]    สร้าง Defect ครบวงจร
+    [Arguments]    ${title}    ${task_text}    ${type}=Code Bug    ${severity}=Medium
+    Click New Button
+    Fill Defect Title    ${title}
+    Select Defect Task    ${task_text}
+    Select Defect Type    ${type}
+    Select Defect Severity    ${severity}
+    Submit Defect Form
+    Wait Until Element Is Visible    css:.board-card__title    timeout=5s
+
+# ===== Detail & Actions =====
+Open Card
+    [Documentation]    เปิดรายละเอียดของการ์ด
+    [Arguments]    ${title}
+    Click Element    xpath://span[contains(@class,'board-card__title') and text()='${title}']
+
+Click Edit Button
+    [Documentation]    คลิกปุ่มแก้ไข
+    Click Element    css:[data-testid="detail-edit"]
+
+Click Delete Button
+    [Documentation]    คลิกปุ่มลบ
+    Click Element    css:[data-testid="detail-delete"]
+
+Confirm Delete
+    [Documentation]    ยืนยันการลบ
+    Click Element    css:[data-testid="confirm-ok"]
+
+Cancel Delete
+    [Documentation]    ยกเลิกการลบ
+    Click Element    css:[data-testid="confirm-cancel"]
+
+# ===== Assertions =====
+Card Should Be Visible
+    [Documentation]    ตรวจสอบว่าการ์ดแสดงอยู่
+    [Arguments]    ${title}
+    Wait Until Element Is Visible    xpath://span[contains(@class,'board-card__title') and text()='${title}']    timeout=5s
+
+Card Should Not Exist
+    [Documentation]    ตรวจสอบว่าการ์ดไม่มีอยู่
+    [Arguments]    ${title}
+    Page Should Not Contain Element    xpath://span[contains(@class,'board-card__title') and text()='${title}']
+
+Alert Should Contain
+    [Documentation]    ตรวจสอบข้อความใน alert
     [Arguments]    ${text}
-    Fill Text    input[name="search"]    ${text}
+    Wait Until Element Is Visible    css:[role="alert"]    timeout=5s
+    Element Should Contain    css:[role="alert"]    ${text}
 
-Select Filter Option
-    [Documentation]    เลือกตัวกรอง
-    [Arguments]    ${filter_name}    ${value}
-    Select Options By    select[name="${filter_name}"]    text    ${value}
+Nav Count Should Be
+    [Documentation]    ตรวจสอบตัวเลขนับในเมนูซ้าย
+    [Arguments]    ${module}    ${count}
+    Element Should Contain    css:[data-testid="nav-${module}"] .sidebar__count    ${count}
 
-Element Should Contain Text
-    [Documentation]    ตรวจสอบว่า element มีข้อความที่ระบุ
-    [Arguments]    ${selector}    ${expected_text}
-    Get Text    ${selector}    contains    ${expected_text}
+Field Should Be Invalid
+    [Documentation]    ตรวจสอบว่า field มี aria-invalid
+    [Arguments]    ${testid}
+    Element Attribute Value Should Be    css:[data-testid="${testid}"]    aria-invalid    true
 
-Element Should Be Visible
-    [Documentation]    ตรวจสอบว่า element แสดงผล
-    [Arguments]    ${selector}
-    Get Element States    ${selector}    contains    visible
+Dialog Should Be Visible
+    [Documentation]    ตรวจสอบว่า dialog ยืนยันแสดงอยู่
+    Wait Until Element Is Visible    css:[role="dialog"]    timeout=5s
 
-Validation Error Should Be Shown
-    [Documentation]    ตรวจสอบว่ามีข้อความแจ้งเตือน validation error
-    [Arguments]    ${message}
-    Get Text    .error-message    contains    ${message}
-
-Confirmation Dialog Should Be Visible
-    [Documentation]    ตรวจสอบว่ากล่องยืนยันแสดงอยู่
-    Get Element States    .confirmation-dialog    contains    visible
-
-Warning Message Should Contain
-    [Documentation]    ตรวจสอบข้อความเตือนในกล่องยืนยัน
-    [Arguments]    ${message}
-    Get Text    .warning-message    contains    ${message}
-
-Count Badge Should Show
-    [Documentation]    ตรวจสอบจำนวนที่แสดงใน badge
-    [Arguments]    ${selector}    ${count}
-    Get Text    ${selector}    ==    ${count}
+Dialog Should Contain
+    [Documentation]    ตรวจสอบข้อความใน dialog
+    [Arguments]    ${text}
+    Element Should Contain    css:[role="dialog"]    ${text}

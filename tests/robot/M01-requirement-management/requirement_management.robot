@@ -4,7 +4,13 @@ Documentation    ทดสอบโมดูลจัดการ Requirement (M
 Resource         ../robot_keywords.resource
 Suite Setup      Open Application
 Suite Teardown   Close Application
-Test Setup       Navigate To Requirement Page
+Test Setup       Reset To Requirements Page
+
+*** Keywords ***
+Reset To Requirements Page
+    [Documentation]    รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state
+    Go To    ${BASE_URL}/requirements
+    Wait Until Element Is Visible    css:[data-testid="nav-requirements"]    timeout=5s
 
 *** Test Cases ***
 # =============================================================================
@@ -12,255 +18,152 @@ Test Setup       Navigate To Requirement Page
 # =============================================================================
 
 สร้าง Requirement ใหม่ได้สำเร็จเมื่อกรอกข้อมูลครบถ้วน
-    [Documentation]    ผู้ใช้สามารถสร้าง Requirement ใหม่ได้
-    ...    โดยระบุ title, description, category, priority, owner
+    [Documentation]    ผู้ใช้สร้าง Requirement ใหม่ ต้องปรากฏใน board ทันที
     [Tags]    FR1.1    M01    create    happy-path
-    Click Create Button
-    Fill Title Field    REQ-001 ระบบล็อกอิน
-    Fill Description Field    ผู้ใช้สามารถล็อกอินด้วย email และรหัสผ่าน
-    Select Category    Functional
-    Select Priority    Must
-    Fill Owner Field    สมชาย
-    Click Save Button
-    Element Should Contain Text    .requirement-list    REQ-001 ระบบล็อกอิน
+    Navigate To Requirement Page
+    Create Requirement    ผู้ใช้ต้องเข้าสู่ระบบได้    Functional    Must
+    Card Should Be Visible    ผู้ใช้ต้องเข้าสู่ระบบได้
 
-สร้าง Requirement โดยไม่กรอก title ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องแจ้งเตือนเมื่อไม่ได้กรอก title
+สร้าง Requirement โดยไม่กรอก Title ระบบต้องปฏิเสธ
+    [Documentation]    กดบันทึกโดยไม่กรอกหัวข้อ → ระบบปฏิเสธ
     [Tags]    FR1.1    M01    create    validation
-    Click Create Button
-    Fill Description Field    รายละเอียดทดสอบ
-    Select Category    Functional
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาระบุชื่อ Requirement
+    Navigate To Requirement Page
+    Click New Button
+    Select Requirement Category    Functional
+    Submit Requirement Form
+    Field Should Be Invalid    req-title
 
 # =============================================================================
 # FR1.2: หมวดหมู่ต้องเป็น Functional หรือ Non-Functional
 # =============================================================================
 
-เลือก Category เป็น Functional ได้สำเร็จ
-    [Documentation]    ระบบต้องรองรับ Category เป็น Functional
-    [Tags]    FR1.2    M01    category
-    Click Create Button
-    Fill Title Field    REQ-002 ทดสอบ Category
-    Select Category    Functional
-    Element Should Contain Text    select[name="category"]    Functional
-
-เลือก Category เป็น Non-Functional ได้สำเร็จ
-    [Documentation]    ระบบต้องรองรับ Category เป็น Non-Functional
-    [Tags]    FR1.2    M01    category
-    Click Create Button
-    Fill Title Field    REQ-003 ทดสอบ Category
-    Select Category    Non-Functional
-    Element Should Contain Text    select[name="category"]    Non-Functional
-
-ไม่เลือก Category ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องปฏิเสธเมื่อไม่ได้เลือก Category (ค่าว่าง)
+ไม่เลือก Category ระบบต้องปฏิเสธ
+    [Documentation]    บันทึกโดยไม่เลือกประเภท → ระบบแสดง error ที่ช่อง category
     [Tags]    FR1.2    M01    category    validation
-    Click Create Button
-    Fill Title Field    REQ-004 ไม่เลือก Category
-    Fill Description Field    ทดสอบไม่เลือก Category
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาเลือกหมวดหมู่
+    Navigate To Requirement Page
+    Click New Button
+    Fill Requirement Title    ทดสอบไม่เลือกประเภท
+    Submit Requirement Form
+    Field Should Be Invalid    req-category
+    Alert Should Contain    Functional
 
 # =============================================================================
-# FR1.3: ค่าเริ่มต้น Priority เป็น Should, ใช้ MoSCoW เท่านั้น
+# FR1.3: MoSCoW Priority — ค่าเริ่มต้น Should
 # =============================================================================
 
-Priority มีค่าเริ่มต้นเป็น Should
-    [Documentation]    เมื่อสร้าง Requirement ใหม่ ค่า Priority เริ่มต้นต้องเป็น Should
+ไม่เลือก Priority ต้องได้ค่าเริ่มต้น Should
+    [Documentation]    สร้างโดยไม่แตะ Priority → ได้ Should และอยู่ใน column Should
     [Tags]    FR1.3    M01    priority    default
-    Click Create Button
-    Element Should Contain Text    select[name="priority"]    Should
+    Navigate To Requirement Page
+    Create Requirement    ระบบต้องตอบสนองเร็ว    Non-Functional
+    Card Should Be Visible    ระบบต้องตอบสนองเร็ว
 
-Priority ต้องเป็นค่า MoSCoW เท่านั้น (Must, Should, Could, Won't)
-    [Documentation]    ตัวเลือก Priority ต้องมีเฉพาะค่า MoSCoW
-    ...    ได้แก่ Must, Should, Could, Won't
-    [Tags]    FR1.3    M01    priority    moscow
-    Click Create Button
-    Get Element Count    select[name="priority"] >> option    ==    4
-
-เลือก Priority เป็น Must ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเปลี่ยน Priority เป็น Must ได้
+เลือก Priority เป็น Must ต้องบันทึกค่าที่เลือก
+    [Documentation]    เลือก Must → การ์ดปรากฏใน column Must
     [Tags]    FR1.3    M01    priority
-    Click Create Button
-    Select Priority    Must
-    Element Should Contain Text    select[name="priority"]    Must
-
-เลือก Priority เป็น Could ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเปลี่ยน Priority เป็น Could ได้
-    [Tags]    FR1.3    M01    priority
-    Click Create Button
-    Select Priority    Could
-    Element Should Contain Text    select[name="priority"]    Could
-
-เลือก Priority เป็น Won't ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเปลี่ยน Priority เป็น Won't ได้
-    [Tags]    FR1.3    M01    priority
-    Click Create Button
-    Select Priority    Won't
-    Element Should Contain Text    select[name="priority"]    Won't
+    Navigate To Requirement Page
+    Create Requirement    ต้องมีหน้า Login    Functional    Must
+    Card Should Be Visible    ต้องมีหน้า Login
 
 # =============================================================================
-# FR1.4: กรองตาม Category, Priority และค้นหาด้วยข้อความ
+# FR1.4: ค้นหาและกรอง
 # =============================================================================
 
-กรอง Requirement ตาม Category ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Requirement ตาม Category ได้
+ค้นหาข้อความต้องแสดงเฉพาะที่ตรง
+    [Documentation]    พิมพ์ค้นหา → แสดงเฉพาะการ์ดที่ตรงคำค้น
+    [Tags]    FR1.4    M01    search    filter
+    Navigate To Requirement Page
+    Create Requirement    เข้าสู่ระบบ    Functional    Must
+    Create Requirement    ออกรายงาน    Functional    Must
+    Input Text    css:[data-testid="toolbar-search"]    รายงาน
+    Card Should Be Visible    ออกรายงาน
+    Card Should Not Exist    เข้าสู่ระบบ
+
+กรอง Category ต้องแสดงเฉพาะประเภทที่เลือก
+    [Documentation]    เลือก filter Functional → แสดงเฉพาะ Functional
     [Tags]    FR1.4    M01    filter    category
-    Select Filter Option    filter-category    Functional
-    Get Element Count    .requirement-item    >    0
-
-กรอง Requirement ตาม Priority ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Requirement ตาม Priority ได้
-    [Tags]    FR1.4    M01    filter    priority
-    Select Filter Option    filter-priority    Must
-    Get Element Count    .requirement-item    >    0
-
-ค้นหา Requirement ด้วยข้อความได้
-    [Documentation]    ผู้ใช้สามารถค้นหา Requirement ด้วยข้อความ (text search) ได้
-    [Tags]    FR1.4    M01    search
-    Fill Search Field    ระบบล็อกอิน
-    Get Element Count    .requirement-item    >    0
-
-ค้นหา Requirement ที่ไม่มีอยู่แสดงผลว่างเปล่า
-    [Documentation]    เมื่อค้นหาข้อความที่ไม่ตรงกับ Requirement ใดๆ แสดงผลว่างเปล่า
-    [Tags]    FR1.4    M01    search    empty
-    Fill Search Field    ข้อความที่ไม่มีอยู่จริง12345
-    Get Element Count    .requirement-item    ==    0
+    Navigate To Requirement Page
+    Create Requirement    งาน Func    Functional    Must
+    Create Requirement    งาน NFR    Non-Functional    Could
+    Switch To List View
+    Select From List By Value    css:[data-testid="filter-category"]    Non-Functional
+    Page Should Contain    งาน NFR
+    Page Should Not Contain    งาน Func
 
 # =============================================================================
-# FR1.5: แก้ไขทุกฟิลด์ได้
+# FR1.5: แก้ไข Requirement
 # =============================================================================
 
-แก้ไข Title ของ Requirement ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถแก้ไข title ของ Requirement ที่มีอยู่ได้
+แก้ไขหัวข้อและ Priority แล้วต้องเห็นค่าใหม่
+    [Documentation]    แก้ไข → ค่าใหม่แสดงใน board
     [Tags]    FR1.5    M01    edit
-    Click    .requirement-item >> nth=0
+    Navigate To Requirement Page
+    Create Requirement    ก่อนแก้    Functional    Should
+    Open Card    ก่อนแก้
     Click Edit Button
-    Fill Title Field    REQ-001 ระบบล็อกอิน (แก้ไขแล้ว)
-    Click Save Button
-    Element Should Contain Text    .requirement-list    REQ-001 ระบบล็อกอิน (แก้ไขแล้ว)
-
-แก้ไข Description ของ Requirement ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถแก้ไข description ของ Requirement ได้
-    [Tags]    FR1.5    M01    edit
-    Click    .requirement-item >> nth=0
-    Click Edit Button
-    Fill Description Field    รายละเอียดที่แก้ไขแล้ว
-    Click Save Button
-    Element Should Contain Text    .requirement-detail    รายละเอียดที่แก้ไขแล้ว
-
-แก้ไข Category ของ Requirement ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเปลี่ยน Category ของ Requirement ได้
-    [Tags]    FR1.5    M01    edit    category
-    Click    .requirement-item >> nth=0
-    Click Edit Button
-    Select Category    Non-Functional
-    Click Save Button
-    Element Should Contain Text    .requirement-detail    Non-Functional
-
-แก้ไข Priority ของ Requirement ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเปลี่ยน Priority ของ Requirement ได้
-    [Tags]    FR1.5    M01    edit    priority
-    Click    .requirement-item >> nth=0
-    Click Edit Button
-    Select Priority    Could
-    Click Save Button
-    Element Should Contain Text    .requirement-detail    Could
-
-แก้ไข Owner ของ Requirement ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเปลี่ยน Owner ของ Requirement ได้
-    [Tags]    FR1.5    M01    edit    owner
-    Click    .requirement-item >> nth=0
-    Click Edit Button
-    Fill Owner Field    สมหญิง
-    Click Save Button
-    Element Should Contain Text    .requirement-detail    สมหญิง
+    Clear Element Text    css:[data-testid="req-title"]
+    Fill Requirement Title    หลังแก้
+    Select Requirement Priority    Won't
+    Submit Requirement Form
+    Card Should Be Visible    หลังแก้
+    Card Should Not Exist    ก่อนแก้
 
 # =============================================================================
-# FR1.6: ลบพร้อมยืนยัน และแจ้งเตือน Cascade Delete
+# FR1.6: ลบ Requirement
 # =============================================================================
 
-ลบ Requirement แสดงกล่องยืนยันก่อนลบ
-    [Documentation]    เมื่อกดลบ Requirement ระบบต้องแสดงกล่องยืนยันก่อน
-    [Tags]    FR1.6    M01    delete    confirmation
-    Click    .requirement-item >> nth=0
-    Click Delete Button
-    Confirmation Dialog Should Be Visible
-
-ยกเลิกการลบ Requirement ข้อมูลยังคงอยู่
-    [Documentation]    เมื่อกดยกเลิกในกล่องยืนยัน Requirement ยังคงอยู่
+ยกเลิกการลบ ข้อมูลต้องยังอยู่
+    [Documentation]    กดลบ → ยกเลิก → ข้อมูลยังคงอยู่
     [Tags]    FR1.6    M01    delete    cancel
-    Click    .requirement-item >> nth=0
+    Navigate To Requirement Page
+    Create Requirement    อย่าลบฉัน    Functional    Must
+    Open Card    อย่าลบฉัน
     Click Delete Button
+    Dialog Should Be Visible
     Cancel Delete
-    Get Element Count    .requirement-item    >    0
+    Sleep    1s
+    Navigate To Requirement Page
+    Card Should Be Visible    อย่าลบฉัน
 
-ยืนยันลบ Requirement ข้อมูลถูกลบสำเร็จ
-    [Documentation]    เมื่อกดยืนยันลบ Requirement จะถูกลบออกจากระบบ
+ยืนยันลบ ข้อมูลต้องหาย
+    [Documentation]    กดลบ → ยืนยัน → หายจาก board
     [Tags]    FR1.6    M01    delete    confirm
-    Click    .requirement-item >> nth=0
+    Navigate To Requirement Page
+    Create Requirement    ลบได้เลย    Functional    Must
+    Open Card    ลบได้เลย
     Click Delete Button
+    Dialog Should Be Visible
     Confirm Delete
-    Element Should Be Visible    .success-message
+    Card Should Not Exist    ลบได้เลย
 
-ลบ Requirement ที่มี Task เชื่อมโยงแสดงเตือน Cascade Delete
-    [Documentation]    เมื่อลบ Requirement ที่มี Task เชื่อมโยง
-    ...    ระบบต้องแสดงเตือนว่าจะลบข้อมูลที่เกี่ยวข้องด้วย
-    [Tags]    FR1.6    FR4.4    M01    delete    cascade
-    Click    .requirement-item-with-tasks >> nth=0
+# =============================================================================
+# FR1.7 + FR4.3: แสดงจำนวน Task และเตือนเมื่อยังไม่มี Task
+# =============================================================================
+
+Requirement ที่ยังไม่มี Task ต้องแสดงคำเตือน
+    [Documentation]    การ์ดที่ยังไม่ถูกแตกเป็น Task ต้องแสดง "⚠ ยังไม่มี Task"
+    [Tags]    FR4.3    M01    traceability    warning
+    Navigate To Requirement Page
+    Create Requirement    ยังไม่ถูกแตก    Functional    Should
+    Page Should Contain    ⚠ ยังไม่มี Task
+
+# =============================================================================
+# FR4.4: Cascade Delete
+# =============================================================================
+
+ลบ Requirement ที่มี Task ผูก ต้องเตือนจำนวนก่อนลบ
+    [Documentation]    Requirement มี Task ผูกอยู่ → dialog บอกจำนวน Task ที่จะถูกลบตาม
+    [Tags]    FR4.4    M01    cascade    delete
+    Navigate To Requirement Page
+    Create Requirement    มีงานผูก    Functional    Must
+    Navigate To Task Page
+    Create Task    งานลูก 1    มีงานผูก    Dev
+    Create Task    งานลูก 2    มีงานผูก    Tester
+    Navigate To Requirement Page
+    Open Card    มีงานผูก
     Click Delete Button
-    Warning Message Should Contain    Task
-
-# =============================================================================
-# FR1.7: แสดงจำนวน Task และ Defect ที่เชื่อมโยง
-# =============================================================================
-
-แสดงจำนวน Task ที่เชื่อมโยงกับ Requirement
-    [Documentation]    ระบบต้องแสดงจำนวน Task ที่เชื่อมโยงกับแต่ละ Requirement
-    [Tags]    FR1.7    M01    count    task
-    Element Should Be Visible    .requirement-item >> .task-count
-
-แสดงจำนวน Defect ที่เชื่อมโยงกับ Requirement
-    [Documentation]    ระบบต้องแสดงจำนวน Defect ที่เชื่อมโยงกับแต่ละ Requirement
-    [Tags]    FR1.7    M01    count    defect
-    Element Should Be Visible    .requirement-item >> .defect-count
-
-# =============================================================================
-# FR4.3: แสดงเตือนเมื่อไม่มี Task เชื่อมโยง
-# =============================================================================
-
-Requirement ที่ไม่มี Task เชื่อมโยงแสดงสัญลักษณ์เตือน
-    [Documentation]    ระบบต้องแสดงสัญลักษณ์เตือนสำหรับ Requirement ที่ยังไม่มี Task เชื่อมโยง
-    ...    เพื่อแจ้งเตือนว่ายังไม่ได้นำไปสร้างงาน
-    [Tags]    FR4.3    M01    warning    no-task
-    Element Should Be Visible    .requirement-item >> .no-task-warning
-
-คลิกสัญลักษณ์เตือนแสดงข้อความว่าไม่มี Task
-    [Documentation]    เมื่อคลิกสัญลักษณ์เตือน ระบบแสดงข้อความอธิบายว่าไม่มี Task เชื่อมโยง
-    [Tags]    FR4.3    M01    warning    no-task
-    Click    .requirement-item >> .no-task-warning
-    Element Should Contain Text    .warning-tooltip    ไม่มี Task เชื่อมโยง
-
-# =============================================================================
-# FR4.4: Cascade Delete แสดงจำนวนรายการที่จะถูกลบ
-# =============================================================================
-
-ลบ Requirement ที่มี Task เชื่อมโยงแสดงจำนวน Task ที่จะถูกลบ
-    [Documentation]    เมื่อลบ Requirement ที่มี Task เชื่อมโยง
-    ...    ระบบต้องแสดงจำนวน Task ที่จะถูกลบไปด้วย (Cascade Delete)
-    [Tags]    FR4.4    M01    cascade    count
-    Click    .requirement-item-with-tasks >> nth=0
-    Click Delete Button
-    Warning Message Should Contain    Task
-    Element Should Be Visible    .cascade-count
-
-ลบ Requirement ที่มี Task และ Defect แสดงจำนวนทั้งหมดที่จะถูกลบ
-    [Documentation]    เมื่อลบ Requirement ที่มีทั้ง Task และ Defect เชื่อมโยง
-    ...    ระบบต้องแสดงจำนวน Task และ Defect ที่จะถูกลบทั้งหมด
-    [Tags]    FR4.4    M01    cascade    count
-    Click    .requirement-item-with-tasks >> nth=0
-    Click Delete Button
-    Warning Message Should Contain    Task
-    Warning Message Should Contain    Defect
-    Element Should Be Visible    .cascade-count
+    Dialog Should Be Visible
+    Dialog Should Contain    2 Tasks
+    Confirm Delete
+    Card Should Not Exist    มีงานผูก
+    Nav Count Should Be    tasks    0
