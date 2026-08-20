@@ -1,0 +1,3223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.8 on win32)" generated="2026-08-20T16:12:55.085520" rpa="false" schemaversion="5">
+<suite id="s1" name="Requirement Management" source="C:\Users\katsa\kiro\ai-dlc-kiro-dudee\tests\robot\M01-requirement-management\requirement_management.robot">
+<kw name="Open Application" owner="robot_keywords" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:55.424345" level="INFO">Opening browser 'chrome' to base url 'http://localhost:5173'.</msg>
+<arg>${BASE_URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:12:55.423341" elapsed="2.169201"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-08-20T16:12:57.592542" elapsed="0.727334"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.319876" elapsed="0.112918"/>
+</kw>
+<doc>เปิดแอปพลิเคชันในเบราว์เซอร์</doc>
+<status status="PASS" start="2026-08-20T16:12:55.422338" elapsed="3.011454"/>
+</kw>
+<test id="s1-t1" name="สร้าง Requirement ใหม่ได้สำเร็จเมื่อกรอกข้อมูลครบถ้วน" line="20">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:58.443625" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.440627" elapsed="0.205783"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.647923" elapsed="0.033649"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:12:58.439626" elapsed="0.241946"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:58.682847" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.681572" elapsed="0.089491"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.771063" elapsed="0.022484"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:58.681572" elapsed="0.111975"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:58.796057" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.794550" elapsed="0.070627"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:12:58.794550" elapsed="0.070627"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:58.866179" level="INFO">Typing text 'ผู้ใช้ต้องเข้าสู่ระบบได้' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:58.866179" elapsed="0.163617"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:58.865177" elapsed="0.164619"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.030985" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.030985" elapsed="0.076860"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:59.030985" elapsed="0.076860"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.108854" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.108854" elapsed="0.060119"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:12:59.107845" elapsed="0.061128"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.168973" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.168973" elapsed="0.063260"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:59.168973" elapsed="0.063260"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.232233" elapsed="0.016335"/>
+</kw>
+<arg>ผู้ใช้ต้องเข้าสู่ระบบได้</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:12:58.793547" elapsed="0.455021"/>
+</kw>
+<kw name="Card Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.249808" elapsed="0.023853"/>
+</kw>
+<arg>ผู้ใช้ต้องเข้าสู่ระบบได้</arg>
+<doc>ตรวจสอบว่าการ์ดแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:12:59.248568" elapsed="0.025093"/>
+</kw>
+<doc>ผู้ใช้สร้าง Requirement ใหม่ ต้องปรากฏใน board ทันที</doc>
+<tag>create</tag>
+<tag>FR1.1</tag>
+<tag>happy-path</tag>
+<tag>M01</tag>
+<status status="PASS" start="2026-08-20T16:12:58.433792" elapsed="0.840886"/>
+</test>
+<test id="s1-t2" name="สร้าง Requirement โดยไม่กรอก Title ระบบต้องปฏิเสธ" line="27">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.277681" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.277681" elapsed="0.135035"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.412716" elapsed="0.019371"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:12:59.277681" elapsed="0.154406"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.433097" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.433097" elapsed="0.102462"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.536567" elapsed="0.018123"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:59.432087" elapsed="0.122603"/>
+</kw>
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.555691" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.555691" elapsed="0.061521"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:12:59.554690" elapsed="0.062522"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.617564" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.617564" elapsed="0.061295"/>
+</kw>
+<arg>Functional</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:59.617564" elapsed="0.061295"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.680018" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.680018" elapsed="0.051660"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:59.678859" elapsed="0.052819"/>
+</kw>
+<kw name="Field Should Be Invalid" owner="robot_keywords">
+<kw name="Element Attribute Value Should Be" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.766013" level="INFO">Element 'css:[data-testid="req-title"]' attribute 'aria-invalid' contains value 'true'.</msg>
+<arg>css:[data-testid="${testid}"]</arg>
+<arg>aria-invalid</arg>
+<arg>true</arg>
+<doc>Verifies element identified by ``locator`` contains expected attribute value.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.732732" elapsed="0.033281"/>
+</kw>
+<arg>req-title</arg>
+<doc>ตรวจสอบว่า field มี aria-invalid</doc>
+<status status="PASS" start="2026-08-20T16:12:59.731678" elapsed="0.034335"/>
+</kw>
+<doc>กดบันทึกโดยไม่กรอกหัวข้อ → ระบบปฏิเสธ</doc>
+<tag>create</tag>
+<tag>FR1.1</tag>
+<tag>M01</tag>
+<tag>validation</tag>
+<status status="PASS" start="2026-08-20T16:12:59.274678" elapsed="0.491335"/>
+</test>
+<test id="s1-t3" name="ไม่เลือก Category ระบบต้องปฏิเสธ" line="40">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.768516" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.768516" elapsed="0.123119"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.891635" elapsed="0.049296"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:12:59.768516" elapsed="0.172415"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:12:59.941931" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:12:59.940931" elapsed="0.126649"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.067580" elapsed="0.021315"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:12:59.940931" elapsed="0.148964"/>
+</kw>
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.091020" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.089895" elapsed="0.091738"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:00.089895" elapsed="0.091738"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.183623" level="INFO">Typing text 'ทดสอบไม่เลือกประเภท' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.183207" elapsed="0.135613"/>
+</kw>
+<arg>ทดสอบไม่เลือกประเภท</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:00.181633" elapsed="0.137187"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.320991" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.319827" elapsed="0.057570"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:00.318820" elapsed="0.058577"/>
+</kw>
+<kw name="Field Should Be Invalid" owner="robot_keywords">
+<kw name="Element Attribute Value Should Be" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.391156" level="INFO">Element 'css:[data-testid="req-category"]' attribute 'aria-invalid' contains value 'true'.</msg>
+<arg>css:[data-testid="${testid}"]</arg>
+<arg>aria-invalid</arg>
+<arg>true</arg>
+<doc>Verifies element identified by ``locator`` contains expected attribute value.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.378978" elapsed="0.012178"/>
+</kw>
+<arg>req-category</arg>
+<doc>ตรวจสอบว่า field มี aria-invalid</doc>
+<status status="PASS" start="2026-08-20T16:13:00.378978" elapsed="0.012178"/>
+</kw>
+<kw name="Alert Should Contain" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[role="alert"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.392716" elapsed="0.013441"/>
+</kw>
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.423191" level="INFO">Element 'css:[role="alert"]' contains text 'Functional'.</msg>
+<arg>css:[role="alert"]</arg>
+<arg>${text}</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.406157" elapsed="0.017034"/>
+</kw>
+<arg>Functional</arg>
+<doc>ตรวจสอบข้อความใน alert</doc>
+<status status="PASS" start="2026-08-20T16:13:00.392716" elapsed="0.030985"/>
+</kw>
+<doc>บันทึกโดยไม่เลือกประเภท → ระบบแสดง error ที่ช่อง category</doc>
+<tag>category</tag>
+<tag>FR1.2</tag>
+<tag>M01</tag>
+<tag>validation</tag>
+<status status="PASS" start="2026-08-20T16:12:59.766013" elapsed="0.657688"/>
+</test>
+<test id="s1-t4" name="ไม่เลือก Priority ต้องได้ค่าเริ่มต้น Should" line="54">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.426263" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.426263" elapsed="0.103058"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.530528" elapsed="0.018524"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:00.424706" elapsed="0.125352"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.550058" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.550058" elapsed="0.057963"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.608021" elapsed="0.015502"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:00.550058" elapsed="0.073465"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.624569" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.624569" elapsed="0.053398"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:00.624569" elapsed="0.053398"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.680010" level="INFO">Typing text 'ระบบต้องตอบสนองเร็ว' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.680010" elapsed="0.111007"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:00.679009" elapsed="0.112008"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.792035" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Non-Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.792035" elapsed="0.065291"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:00.792035" elapsed="0.066360"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.859400" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Should.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.858395" elapsed="0.034024"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:00.858395" elapsed="0.034024"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.892419" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.892419" elapsed="0.050397"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:00.892419" elapsed="0.050397"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.942816" elapsed="0.013319"/>
+</kw>
+<arg>ระบบต้องตอบสนองเร็ว</arg>
+<arg>Non-Functional</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:00.624569" elapsed="0.331566"/>
+</kw>
+<kw name="Card Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.956135" elapsed="0.014966"/>
+</kw>
+<arg>ระบบต้องตอบสนองเร็ว</arg>
+<doc>ตรวจสอบว่าการ์ดแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:00.956135" elapsed="0.014966"/>
+</kw>
+<doc>สร้างโดยไม่แตะ Priority → ได้ Should และอยู่ใน column Should</doc>
+<tag>default</tag>
+<tag>FR1.3</tag>
+<tag>M01</tag>
+<tag>priority</tag>
+<status status="PASS" start="2026-08-20T16:13:00.423701" elapsed="0.547400"/>
+</test>
+<test id="s1-t5" name="เลือก Priority เป็น Must ต้องบันทึกค่าที่เลือก" line="61">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:00.974100" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:00.974100" elapsed="0.087117"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.062230" elapsed="0.017503"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:00.973102" elapsed="0.106631"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.080736" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.080736" elapsed="0.052247"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.133982" elapsed="0.014552"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.079733" elapsed="0.068801"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.149537" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.149537" elapsed="0.050765"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:01.148534" elapsed="0.051768"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.201579" level="INFO">Typing text 'ต้องมีหน้า Login' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.201579" elapsed="0.128857"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.200302" elapsed="0.130134"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.331518" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.331518" elapsed="0.063155"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.330436" elapsed="0.064237"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.396540" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.396540" elapsed="0.084957"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:01.394673" elapsed="0.086824"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.483495" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.482497" elapsed="0.072507"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.482497" elapsed="0.073507"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.556004" elapsed="0.019392"/>
+</kw>
+<arg>ต้องมีหน้า Login</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:01.148534" elapsed="0.426862"/>
+</kw>
+<kw name="Card Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.575396" elapsed="0.019770"/>
+</kw>
+<arg>ต้องมีหน้า Login</arg>
+<doc>ตรวจสอบว่าการ์ดแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:01.575396" elapsed="0.019770"/>
+</kw>
+<doc>เลือก Must → การ์ดปรากฏใน column Must</doc>
+<tag>FR1.3</tag>
+<tag>M01</tag>
+<tag>priority</tag>
+<status status="PASS" start="2026-08-20T16:13:00.972103" elapsed="0.623063"/>
+</test>
+<test id="s1-t6" name="ค้นหาข้อความต้องแสดงเฉพาะที่ตรง" line="72">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.599041" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.599041" elapsed="0.103072"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.702113" elapsed="0.017823"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:01.599041" elapsed="0.122171"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.722209" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.722209" elapsed="0.059794"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.782003" elapsed="0.015137"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.721212" elapsed="0.077323"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.799582" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.798535" elapsed="0.052361"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:01.798535" elapsed="0.052361"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.851953" level="INFO">Typing text 'เข้าสู่ระบบ' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.851953" elapsed="0.086559"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.851953" elapsed="0.086559"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.939552" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.939552" elapsed="0.053754"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:01.938512" elapsed="0.054794"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:01.994380" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:01.994380" elapsed="0.047754"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:01.993306" elapsed="0.048828"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.043389" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.042134" elapsed="0.051862"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.042134" elapsed="0.051862"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.093996" elapsed="0.014105"/>
+</kw>
+<arg>เข้าสู่ระบบ</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:01.798535" elapsed="0.309566"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.109285" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.109285" elapsed="0.046239"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:02.109285" elapsed="0.046239"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.156578" level="INFO">Typing text 'ออกรายงาน' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.156578" elapsed="0.082049"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.155524" elapsed="0.083103"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.239745" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.239745" elapsed="0.053051"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.238627" elapsed="0.054169"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.292796" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.292796" elapsed="0.049902"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:02.292796" elapsed="0.049902"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.343750" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.343750" elapsed="0.050142"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.342698" elapsed="0.051194"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.394909" elapsed="0.018537"/>
+</kw>
+<arg>ออกรายงาน</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:02.108101" elapsed="0.305345"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.413446" level="INFO">Typing text 'รายงาน' into text field 'css:[data-testid="toolbar-search"]'.</msg>
+<arg>css:[data-testid="toolbar-search"]</arg>
+<arg>รายงาน</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.413446" elapsed="0.087029"/>
+</kw>
+<kw name="Card Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.501476" elapsed="0.018561"/>
+</kw>
+<arg>ออกรายงาน</arg>
+<doc>ตรวจสอบว่าการ์ดแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:02.501476" elapsed="0.018561"/>
+</kw>
+<kw name="Card Should Not Exist" owner="robot_keywords">
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.530734" level="INFO">Current page does not contain element 'xpath://span[contains(@class,'board-card__title') and text()='เข้าสู่ระบบ']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.521270" elapsed="0.009464"/>
+</kw>
+<arg>เข้าสู่ระบบ</arg>
+<doc>ตรวจสอบว่าการ์ดไม่มีอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:02.520037" elapsed="0.010697"/>
+</kw>
+<doc>พิมพ์ค้นหา → แสดงเฉพาะการ์ดที่ตรงคำค้น</doc>
+<tag>filter</tag>
+<tag>FR1.4</tag>
+<tag>M01</tag>
+<tag>search</tag>
+<status status="PASS" start="2026-08-20T16:13:01.596676" elapsed="0.934058"/>
+</test>
+<test id="s1-t7" name="กรอง Category ต้องแสดงเฉพาะประเภทที่เลือก" line="82">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.534734" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.534734" elapsed="0.106091"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.641825" elapsed="0.020794"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:02.533732" elapsed="0.128887"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.664071" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.664071" elapsed="0.064707"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.728778" elapsed="0.017792"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.662619" elapsed="0.084486"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.748221" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.748221" elapsed="0.056968"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:02.747646" elapsed="0.058879"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.806525" level="INFO">Typing text 'งาน Func' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.806525" elapsed="0.100454"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.806525" elapsed="0.100454"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.909156" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.908139" elapsed="0.084162"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:02.908139" elapsed="0.084162"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:02.994302" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:02.993304" elapsed="0.071625"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:02.993304" elapsed="0.071625"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.065961" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.065961" elapsed="0.059040"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.064929" elapsed="0.060072"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.125001" elapsed="0.014135"/>
+</kw>
+<arg>งาน Func</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:02.747105" elapsed="0.392031"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.141156" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.140156" elapsed="0.055943"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:03.140156" elapsed="0.057195"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.197351" level="INFO">Typing text 'งาน NFR' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.197351" elapsed="0.086565"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.197351" elapsed="0.086565"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.285023" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Non-Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.285023" elapsed="0.073870"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.283916" elapsed="0.074977"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.359898" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Could.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.359898" elapsed="0.052016"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:03.358893" elapsed="0.053021"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.411914" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.411914" elapsed="0.057265"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.411914" elapsed="0.057265"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.469179" elapsed="0.016769"/>
+</kw>
+<arg>งาน NFR</arg>
+<arg>Non-Functional</arg>
+<arg>Could</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:03.140156" elapsed="0.345792"/>
+</kw>
+<kw name="Switch To List View" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.486982" level="INFO">Clicking element 'css:[data-testid="view-tab-list"]'.</msg>
+<arg>css:[data-testid="view-tab-list"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.486982" elapsed="0.063274"/>
+</kw>
+<doc>สลับไปมุมมองตาราง</doc>
+<status status="PASS" start="2026-08-20T16:13:03.485948" elapsed="0.064308"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.551351" level="INFO">Selecting options from selection list 'css:[data-testid="filter-category"]' by value Non-Functional.</msg>
+<arg>css:[data-testid="filter-category"]</arg>
+<arg>Non-Functional</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.550256" elapsed="0.061056"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.622908" level="INFO">Current page contains text 'งาน NFR'.</msg>
+<arg>งาน NFR</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.611312" elapsed="0.011596"/>
+</kw>
+<kw name="Page Should Not Contain" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.641655" level="INFO">Current page does not contain text 'งาน Func'.</msg>
+<arg>งาน Func</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.622908" elapsed="0.018747"/>
+</kw>
+<doc>เลือก filter Functional → แสดงเฉพาะ Functional</doc>
+<tag>category</tag>
+<tag>filter</tag>
+<tag>FR1.4</tag>
+<tag>M01</tag>
+<status status="PASS" start="2026-08-20T16:13:02.531734" elapsed="1.109921"/>
+</test>
+<test id="s1-t8" name="แก้ไขหัวข้อและ Priority แล้วต้องเห็นค่าใหม่" line="97">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.645789" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.644790" elapsed="0.117735"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.763067" elapsed="0.018613"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:03.644790" elapsed="0.138011"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.782801" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.782801" elapsed="0.066571"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.850380" elapsed="0.014735"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.782801" elapsed="0.082314"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.866117" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.866117" elapsed="0.052456"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:03.865115" elapsed="0.054595"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.920719" level="INFO">Typing text 'ก่อนแก้' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.919710" elapsed="0.077174"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.919710" elapsed="0.077174"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:03.998138" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:03.996884" elapsed="0.051646"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:03.996884" elapsed="0.051646"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.049539" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Should.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.049539" elapsed="0.030219"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:04.048530" elapsed="0.031228"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.080829" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.080829" elapsed="0.051497"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:04.079758" elapsed="0.053633"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.133391" elapsed="0.012451"/>
+</kw>
+<arg>ก่อนแก้</arg>
+<arg>Functional</arg>
+<arg>Should</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:03.865115" elapsed="0.280727"/>
+</kw>
+<kw name="Open Card" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.146851" level="INFO">Clicking element 'xpath://span[contains(@class,'board-card__title') and text()='ก่อนแก้']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.146851" elapsed="0.067228"/>
+</kw>
+<arg>ก่อนแก้</arg>
+<doc>เปิดรายละเอียดของการ์ด</doc>
+<status status="PASS" start="2026-08-20T16:13:04.145842" elapsed="0.068237"/>
+</kw>
+<kw name="Click Edit Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.215407" level="INFO">Clicking element 'css:[data-testid="detail-edit"]'.</msg>
+<arg>css:[data-testid="detail-edit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.215407" elapsed="0.051091"/>
+</kw>
+<doc>คลิกปุ่มแก้ไข</doc>
+<status status="PASS" start="2026-08-20T16:13:04.215407" elapsed="0.052574"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>css:[data-testid="req-title"]</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.267981" elapsed="0.027902"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.296926" level="INFO">Typing text 'หลังแก้' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.296926" elapsed="0.076159"/>
+</kw>
+<arg>หลังแก้</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:04.296926" elapsed="0.076159"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.374133" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Won't.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.374133" elapsed="0.057786"/>
+</kw>
+<arg>Won't</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:04.373085" elapsed="0.058834"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.432921" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.432921" elapsed="0.058390"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:04.432921" elapsed="0.058390"/>
+</kw>
+<kw name="Card Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.492313" elapsed="0.017165"/>
+</kw>
+<arg>หลังแก้</arg>
+<doc>ตรวจสอบว่าการ์ดแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:04.491311" elapsed="0.018167"/>
+</kw>
+<kw name="Card Should Not Exist" owner="robot_keywords">
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.516331" level="INFO">Current page does not contain element 'xpath://span[contains(@class,'board-card__title') and text()='ก่อนแก้']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.510478" elapsed="0.005853"/>
+</kw>
+<arg>ก่อนแก้</arg>
+<doc>ตรวจสอบว่าการ์ดไม่มีอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:04.509478" elapsed="0.006853"/>
+</kw>
+<doc>แก้ไข → ค่าใหม่แสดงใน board</doc>
+<tag>edit</tag>
+<tag>FR1.5</tag>
+<tag>M01</tag>
+<status status="PASS" start="2026-08-20T16:13:03.642791" elapsed="0.874931"/>
+</test>
+<test id="s1-t9" name="ยกเลิกการลบ ข้อมูลต้องยังอยู่" line="115">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.519737" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.519737" elapsed="0.149983"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.670722" elapsed="0.034976"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:04.519737" elapsed="0.185961"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.707121" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.707121" elapsed="0.071603"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.778724" elapsed="0.022070"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:04.707121" elapsed="0.093673"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.802005" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.802005" elapsed="0.072267"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:04.802005" elapsed="0.072267"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.875282" level="INFO">Typing text 'อย่าลบฉัน' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.874272" elapsed="0.109502"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:04.874272" elapsed="0.109502"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:04.984782" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:04.983774" elapsed="0.058323"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:04.983774" elapsed="0.058323"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:05.043096" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.043096" elapsed="0.063148"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:05.042097" elapsed="0.064147"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:05.106244" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.106244" elapsed="0.064558"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:05.106244" elapsed="0.064558"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.170802" elapsed="0.015099"/>
+</kw>
+<arg>อย่าลบฉัน</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:04.800794" elapsed="0.385107"/>
+</kw>
+<kw name="Open Card" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:05.186911" level="INFO">Clicking element 'xpath://span[contains(@class,'board-card__title') and text()='อย่าลบฉัน']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.186911" elapsed="0.060876"/>
+</kw>
+<arg>อย่าลบฉัน</arg>
+<doc>เปิดรายละเอียดของการ์ด</doc>
+<status status="PASS" start="2026-08-20T16:13:05.185901" elapsed="0.061886"/>
+</kw>
+<kw name="Click Delete Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:05.248799" level="INFO">Clicking element 'css:[data-testid="detail-delete"]'.</msg>
+<arg>css:[data-testid="detail-delete"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.247787" elapsed="0.051306"/>
+</kw>
+<doc>คลิกปุ่มลบ</doc>
+<status status="PASS" start="2026-08-20T16:13:05.247787" elapsed="0.051306"/>
+</kw>
+<kw name="Dialog Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[role="dialog"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.300600" elapsed="0.017076"/>
+</kw>
+<doc>ตรวจสอบว่า dialog ยืนยันแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:05.299093" elapsed="0.018583"/>
+</kw>
+<kw name="Cancel Delete" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:05.317676" level="INFO">Clicking element 'css:[data-testid="confirm-cancel"]'.</msg>
+<arg>css:[data-testid="confirm-cancel"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.317676" elapsed="0.060271"/>
+</kw>
+<doc>ยกเลิกการลบ</doc>
+<status status="PASS" start="2026-08-20T16:13:05.317676" elapsed="0.060271"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-08-20T16:13:06.379525" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-08-20T16:13:05.378993" elapsed="1.000532"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:06.379525" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:06.379525" elapsed="0.050502"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:06.430027" elapsed="0.020219"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:06.379525" elapsed="0.070721"/>
+</kw>
+<kw name="Card Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:11.711240" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-08-20T16:13:11.712290" level="FAIL">Element 'xpath://span[contains(@class,'board-card__title') and text()='อย่าลบฉัน']' not visible after 5 seconds.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="FAIL" start="2026-08-20T16:13:06.451255" elapsed="5.263263">Element 'xpath://span[contains(@class,'board-card__title') and text()='อย่าลบฉัน']' not visible after 5 seconds.</status>
+</kw>
+<arg>อย่าลบฉัน</arg>
+<doc>ตรวจสอบว่าการ์ดแสดงอยู่</doc>
+<status status="FAIL" start="2026-08-20T16:13:06.450246" elapsed="5.264272">Element 'xpath://span[contains(@class,'board-card__title') and text()='อย่าลบฉัน']' not visible after 5 seconds.</status>
+</kw>
+<doc>กดลบ → ยกเลิก → ข้อมูลยังคงอยู่</doc>
+<tag>cancel</tag>
+<tag>delete</tag>
+<tag>FR1.6</tag>
+<tag>M01</tag>
+<status status="FAIL" start="2026-08-20T16:13:04.517722" elapsed="7.196796">Element 'xpath://span[contains(@class,'board-card__title') and text()='อย่าลบฉัน']' not visible after 5 seconds.</status>
+</test>
+<test id="s1-t10" name="ยืนยันลบ ข้อมูลต้องหาย" line="128">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:11.717868" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:11.717868" elapsed="0.152906"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:11.870774" elapsed="0.020057"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:11.716740" elapsed="0.174091"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:11.891838" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:11.891838" elapsed="0.063786"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:11.956699" elapsed="0.013091"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:11.891838" elapsed="0.078987"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:11.972073" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:11.972073" elapsed="0.058918"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:11.970825" elapsed="0.060166"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.033062" level="INFO">Typing text 'ลบได้เลย' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.032061" elapsed="0.094536"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:12.032061" elapsed="0.094536"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.127864" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.127864" elapsed="0.059851"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:12.126597" elapsed="0.061118"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.188954" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.188954" elapsed="0.060959"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:12.188954" elapsed="0.060959"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.250944" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.250944" elapsed="0.071757"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:12.250944" elapsed="0.071757"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.322701" elapsed="0.022527"/>
+</kw>
+<arg>ลบได้เลย</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:11.970825" elapsed="0.374403"/>
+</kw>
+<kw name="Open Card" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.347663" level="INFO">Clicking element 'xpath://span[contains(@class,'board-card__title') and text()='ลบได้เลย']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.346610" elapsed="0.085677"/>
+</kw>
+<arg>ลบได้เลย</arg>
+<doc>เปิดรายละเอียดของการ์ด</doc>
+<status status="PASS" start="2026-08-20T16:13:12.346610" elapsed="0.085677"/>
+</kw>
+<kw name="Click Delete Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.434599" level="INFO">Clicking element 'css:[data-testid="detail-delete"]'.</msg>
+<arg>css:[data-testid="detail-delete"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.433544" elapsed="0.066688"/>
+</kw>
+<doc>คลิกปุ่มลบ</doc>
+<status status="PASS" start="2026-08-20T16:13:12.432287" elapsed="0.067945"/>
+</kw>
+<kw name="Dialog Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[role="dialog"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.500232" elapsed="0.017340"/>
+</kw>
+<doc>ตรวจสอบว่า dialog ยืนยันแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:12.500232" elapsed="0.017340"/>
+</kw>
+<kw name="Confirm Delete" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.518580" level="INFO">Clicking element 'css:[data-testid="confirm-ok"]'.</msg>
+<arg>css:[data-testid="confirm-ok"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.518580" elapsed="0.060310"/>
+</kw>
+<doc>ยืนยันการลบ</doc>
+<status status="PASS" start="2026-08-20T16:13:12.517572" elapsed="0.061318"/>
+</kw>
+<kw name="Card Should Not Exist" owner="robot_keywords">
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.588260" level="INFO">Current page does not contain element 'xpath://span[contains(@class,'board-card__title') and text()='ลบได้เลย']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.580033" elapsed="0.008227"/>
+</kw>
+<arg>ลบได้เลย</arg>
+<doc>ตรวจสอบว่าการ์ดไม่มีอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:12.578890" elapsed="0.010429"/>
+</kw>
+<doc>กดลบ → ยืนยัน → หายจาก board</doc>
+<tag>confirm</tag>
+<tag>delete</tag>
+<tag>FR1.6</tag>
+<tag>M01</tag>
+<status status="PASS" start="2026-08-20T16:13:11.715717" elapsed="0.873602"/>
+</test>
+<test id="s1-t11" name="Requirement ที่ยังไม่มี Task ต้องแสดงคำเตือน" line="143">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.592654" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.592654" elapsed="0.132037"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.724691" elapsed="0.029888"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:12.591650" elapsed="0.162929"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.756078" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.756078" elapsed="0.089272"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.846485" elapsed="0.017473"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:12.756078" elapsed="0.109043"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.866125" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.866125" elapsed="0.081814"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:12.865121" elapsed="0.082818"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:12.949938" level="INFO">Typing text 'ยังไม่ถูกแตก' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:12.948940" elapsed="0.129556"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:12.948940" elapsed="0.131023"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.080987" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.079963" elapsed="0.059208"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:13.079963" elapsed="0.059208"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.140234" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Should.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.140234" elapsed="0.036245"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:13.139171" elapsed="0.037308"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.176479" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.176479" elapsed="0.060917"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:13.176479" elapsed="0.061998"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.238477" elapsed="0.014222"/>
+</kw>
+<arg>ยังไม่ถูกแตก</arg>
+<arg>Functional</arg>
+<arg>Should</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:12.865121" elapsed="0.387578"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.268281" level="INFO">Current page contains text '⚠ ยังไม่มี Task'.</msg>
+<arg>⚠ ยังไม่มี Task</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.253750" elapsed="0.014531"/>
+</kw>
+<doc>การ์ดที่ยังไม่ถูกแตกเป็น Task ต้องแสดง "⚠ ยังไม่มี Task"</doc>
+<tag>FR4.3</tag>
+<tag>M01</tag>
+<tag>traceability</tag>
+<tag>warning</tag>
+<status status="PASS" start="2026-08-20T16:13:12.589319" elapsed="0.678962"/>
+</test>
+<test id="s1-t12" name="ลบ Requirement ที่มี Task ผูก ต้องเตือนจำนวนก่อนลบ" line="154">
+<kw name="Reset To Requirements Page" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.272584" level="INFO">Opening url 'http://localhost:5173/requirements'</msg>
+<arg>${BASE_URL}/requirements</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.271578" elapsed="0.105452"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[data-testid="nav-requirements"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.377030" elapsed="0.021140"/>
+</kw>
+<doc>รีเซ็ตหน้าก่อนทุก test โดยเปิดหน้าใหม่เพื่อล้าง state</doc>
+<status status="PASS" start="2026-08-20T16:13:13.271578" elapsed="0.126592"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.399561" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.399561" elapsed="0.062564"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.462125" elapsed="0.018012"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:13.398170" elapsed="0.081967"/>
+</kw>
+<kw name="Create Requirement" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.481182" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.481182" elapsed="0.058027"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:13.481182" elapsed="0.058027"/>
+</kw>
+<kw name="Fill Requirement Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.540396" level="INFO">Typing text 'มีงานผูก' into text field 'css:[data-testid="req-title"]'.</msg>
+<arg>css:[data-testid="req-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.540396" elapsed="0.093569"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:13.539209" elapsed="0.094756"/>
+</kw>
+<kw name="Select Requirement Category" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.635060" level="INFO">Selecting options from selection list 'css:[data-testid="req-category"]' by value Functional.</msg>
+<arg>css:[data-testid="req-category"]</arg>
+<arg>${category}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.635060" elapsed="0.088640"/>
+</kw>
+<arg>${category}</arg>
+<doc>เลือกประเภท Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:13.635060" elapsed="0.088640"/>
+</kw>
+<kw name="Select Requirement Priority" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.724724" level="INFO">Selecting options from selection list 'css:[data-testid="req-priority"]' by value Must.</msg>
+<arg>css:[data-testid="req-priority"]</arg>
+<arg>${priority}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.723700" elapsed="0.057762"/>
+</kw>
+<arg>${priority}</arg>
+<doc>เลือกระดับความสำคัญ</doc>
+<status status="PASS" start="2026-08-20T16:13:13.723700" elapsed="0.057762"/>
+</kw>
+<kw name="Submit Requirement Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.782637" level="INFO">Clicking element 'css:[data-testid="req-submit"]'.</msg>
+<arg>css:[data-testid="req-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.782637" elapsed="0.058461"/>
+</kw>
+<doc>กดบันทึก Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:13.781462" elapsed="0.059636"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.841098" elapsed="0.016270"/>
+</kw>
+<arg>มีงานผูก</arg>
+<arg>Functional</arg>
+<arg>Must</arg>
+<doc>สร้าง Requirement ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:13.480137" elapsed="0.377231"/>
+</kw>
+<kw name="Navigate To Task Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.858374" level="INFO">Clicking element 'css:[data-testid="nav-tasks"]'.</msg>
+<arg>css:[data-testid="nav-tasks"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.858374" elapsed="0.055791"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.914165" elapsed="0.015804"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Task</doc>
+<status status="PASS" start="2026-08-20T16:13:13.857368" elapsed="0.073662"/>
+</kw>
+<kw name="Create Task" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.931030" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.931030" elapsed="0.054716"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:13.931030" elapsed="0.054716"/>
+</kw>
+<kw name="Fill Task Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:13.986779" level="INFO">Typing text 'งานลูก 1' into text field 'css:[data-testid="task-title"]'.</msg>
+<arg>css:[data-testid="task-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:13.986779" elapsed="0.088793"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Task</doc>
+<status status="PASS" start="2026-08-20T16:13:13.985746" elapsed="0.089826"/>
+</kw>
+<kw name="Select Task Requirement" owner="robot_keywords">
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.086364" level="INFO">${options} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.545")&gt;, &lt;selenium.webdri...</msg>
+<var>${options}</var>
+<arg>css:[data-testid="task-requirement"] option</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.076714" elapsed="0.009650"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.094654" level="INFO">${text} = — เลือก Requirement —</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.086364" elapsed="0.008290"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.095711" level="FAIL">'— เลือก Requirement —' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.095191" elapsed="0.000520">'— เลือก Requirement —' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.096239" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.095191" elapsed="0.001048"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.096239" elapsed="0.000525"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.096764" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.096764" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.096239" elapsed="0.000525"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.096239" elapsed="0.000525"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.545")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.086364" elapsed="0.010400"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.104493" level="INFO">${text} = ผู้ใช้ต้องเข้าสู่ระบบได้ (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.097420" elapsed="0.007073"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.105524" level="FAIL">'ผู้ใช้ต้องเข้าสู่ระบบได้ (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.105524" elapsed="0.000000">'ผู้ใช้ต้องเข้าสู่ระบบได้ (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.105524" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.104493" elapsed="0.001031"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.105524" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.106541" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.106541" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.105524" elapsed="0.001017"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.105524" elapsed="0.001017"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.547")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.097420" elapsed="0.009121"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.113373" level="INFO">${text} = ระบบต้องตอบสนองเร็ว (Should)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.106541" elapsed="0.006832"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.114391" level="FAIL">'ระบบต้องตอบสนองเร็ว (Should)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.113373" elapsed="0.001018">'ระบบต้องตอบสนองเร็ว (Should)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.114391" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.113373" elapsed="0.001018"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.114391" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.114391" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.114391" elapsed="0.001084"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.114391" elapsed="0.001084"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.114391" elapsed="0.001084"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.549")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.106541" elapsed="0.008934"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.122444" level="INFO">${text} = ต้องมีหน้า Login (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.115475" elapsed="0.006969"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.123450" level="FAIL">'ต้องมีหน้า Login (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.123450" elapsed="0.000000">'ต้องมีหน้า Login (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.123450" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.122444" elapsed="0.001006"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.123450" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.123450" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.124521" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.123450" elapsed="0.001071"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.123450" elapsed="0.001071"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.551")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.115475" elapsed="0.009046"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.131242" level="INFO">${text} = เข้าสู่ระบบ (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.124521" elapsed="0.006721"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.132248" level="FAIL">'เข้าสู่ระบบ (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.132248" elapsed="0.000000">'เข้าสู่ระบบ (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.132248" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.132248" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.133345" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.133345" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.133345" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.132248" elapsed="0.001097"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.132248" elapsed="0.001097"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.553")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.124521" elapsed="0.008824"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.140035" level="INFO">${text} = ออกรายงาน (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.133345" elapsed="0.006690"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.141111" level="FAIL">'ออกรายงาน (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.141111" elapsed="0.000000">'ออกรายงาน (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.141111" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.141111" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.141111" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.141111" elapsed="0.001251"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.142362" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.141111" elapsed="0.001251"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.141111" elapsed="0.001251"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.555")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.133345" elapsed="0.009017"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.149059" level="INFO">${text} = งาน Func (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.142362" elapsed="0.006697"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.150115" level="FAIL">'งาน Func (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.150115" elapsed="0.000000">'งาน Func (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.150115" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.150115" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.151128" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.151128" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.151128" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.150115" elapsed="0.001013"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.150115" elapsed="0.001013"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.557")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.142362" elapsed="0.008766"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.158760" level="INFO">${text} = งาน NFR (Could)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.151128" elapsed="0.007632"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.158760" level="FAIL">'งาน NFR (Could)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.158760" elapsed="0.000000">'งาน NFR (Could)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.159761" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.158760" elapsed="0.001001"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.159761" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.159761" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.159761" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.159761" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.159761" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.559")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.151128" elapsed="0.008633"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.168657" level="INFO">${text} = หลังแก้ (Won't)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.159761" elapsed="0.008896"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.168657" level="FAIL">'หลังแก้ (Won't)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.168657" elapsed="0.001006">'หลังแก้ (Won't)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.169663" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.168657" elapsed="0.001006"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.169663" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.169663" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.169663" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.169663" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.169663" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.561")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.159761" elapsed="0.009902"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.177850" level="INFO">${text} = อย่าลบฉัน (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.170687" elapsed="0.007163"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.179090" level="FAIL">'อย่าลบฉัน (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.179090" elapsed="0.000000">'อย่าลบฉัน (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.179090" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.177850" elapsed="0.001240"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.179090" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.179090" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.179090" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.179090" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.179090" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.563")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.170687" elapsed="0.008403"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.187048" level="INFO">${text} = ยังไม่ถูกแตก (Should)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.180467" elapsed="0.006581"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.188045" level="FAIL">'ยังไม่ถูกแตก (Should)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.188045" elapsed="0.000000">'ยังไม่ถูกแตก (Should)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.188045" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.187048" elapsed="0.000997"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.188045" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.188045" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.188045" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.188045" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.188045" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.565")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.180467" elapsed="0.007578"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.196198" level="INFO">${text} = มีงานผูก (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.189515" elapsed="0.006683"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.196198" elapsed="0.001667"/>
+</kw>
+<msg time="2026-08-20T16:13:14.197865" level="INFO">${contains} = True</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.196198" elapsed="0.001667"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.204128" level="INFO">${value} = 0ac4a9b3-8c0a-4235-9005-26344d4a5cff</msg>
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.197865" elapsed="0.006263"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.205281" level="INFO">Selecting options from selection list 'css:[data-testid="task-requirement"]' by value 0ac4a9b3-8c0a-4235-9005-26344d4a5cff.</msg>
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.204128" elapsed="0.066213"/>
+</kw>
+<return>
+<status status="PASS" start="2026-08-20T16:13:14.270341" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2026-08-20T16:13:14.197865" elapsed="0.072476"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.197865" elapsed="0.072476"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.567")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.188045" elapsed="0.082296"/>
+</iter>
+<var>${option}</var>
+<value>@{options}</value>
+<status status="PASS" start="2026-08-20T16:13:14.086364" elapsed="0.184978"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>ไม่พบตัวเลือก "${requirement_text}" ใน dropdown</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.271342" elapsed="0.000000"/>
+</kw>
+<arg>${requirement_text}</arg>
+<doc>เลือก Requirement ต้นทาง (เลือกจากข้อความที่เห็น)</doc>
+<status status="PASS" start="2026-08-20T16:13:14.075572" elapsed="0.195770"/>
+</kw>
+<kw name="Select Task Role" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.272339" level="INFO">Selecting options from selection list 'css:[data-testid="task-role"]' by value Dev.</msg>
+<arg>css:[data-testid="task-role"]</arg>
+<arg>${role}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.272339" elapsed="0.070883"/>
+</kw>
+<arg>${role}</arg>
+<doc>เลือกตำแหน่งผู้รับผิดชอบ</doc>
+<status status="PASS" start="2026-08-20T16:13:14.271342" elapsed="0.072879"/>
+</kw>
+<kw name="Submit Task Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.345705" level="INFO">Clicking element 'css:[data-testid="task-submit"]'.</msg>
+<arg>css:[data-testid="task-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.344221" elapsed="0.068232"/>
+</kw>
+<doc>กดบันทึก Task</doc>
+<status status="PASS" start="2026-08-20T16:13:14.344221" elapsed="0.068232"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.413889" elapsed="0.015431"/>
+</kw>
+<arg>งานลูก 1</arg>
+<arg>มีงานผูก</arg>
+<arg>Dev</arg>
+<doc>สร้าง Task ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:13.931030" elapsed="0.498290"/>
+</kw>
+<kw name="Create Task" owner="robot_keywords">
+<kw name="Click New Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.430745" level="INFO">Clicking element 'css:[data-testid="toolbar-new"]'.</msg>
+<arg>css:[data-testid="toolbar-new"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.429320" elapsed="0.052579"/>
+</kw>
+<doc>คลิกปุ่มสร้างรายการใหม่</doc>
+<status status="PASS" start="2026-08-20T16:13:14.429320" elapsed="0.052579"/>
+</kw>
+<kw name="Fill Task Title" owner="robot_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.482903" level="INFO">Typing text 'งานลูก 2' into text field 'css:[data-testid="task-title"]'.</msg>
+<arg>css:[data-testid="task-title"]</arg>
+<arg>${title}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.481899" elapsed="0.084280"/>
+</kw>
+<arg>${title}</arg>
+<doc>กรอกหัวข้อ Task</doc>
+<status status="PASS" start="2026-08-20T16:13:14.481899" elapsed="0.084280"/>
+</kw>
+<kw name="Select Task Requirement" owner="robot_keywords">
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.575424" level="INFO">${options} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.584")&gt;, &lt;selenium.webdri...</msg>
+<var>${options}</var>
+<arg>css:[data-testid="task-requirement"] option</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.566179" elapsed="0.009245"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.584674" level="INFO">${text} = — เลือก Requirement —</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.576434" elapsed="0.008240"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.584674" level="FAIL">'— เลือก Requirement —' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.584674" elapsed="0.001001">'— เลือก Requirement —' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.585675" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.584674" elapsed="0.001001"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.585675" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.585675" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.585675" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.585675" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.585675" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.584")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.575424" elapsed="0.010251"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.595166" level="INFO">${text} = ผู้ใช้ต้องเข้าสู่ระบบได้ (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.586693" elapsed="0.008473"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.596166" level="FAIL">'ผู้ใช้ต้องเข้าสู่ระบบได้ (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.595166" elapsed="0.001000">'ผู้ใช้ต้องเข้าสู่ระบบได้ (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.596166" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.595166" elapsed="0.001000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.596166" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.596166" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.596166" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.596166" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.596166" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.586")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.586693" elapsed="0.009473"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.605558" level="INFO">${text} = ระบบต้องตอบสนองเร็ว (Should)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.597672" elapsed="0.007886"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.606567" level="FAIL">'ระบบต้องตอบสนองเร็ว (Should)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.605558" elapsed="0.001009">'ระบบต้องตอบสนองเร็ว (Should)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.606567" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.605558" elapsed="0.001009"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.606567" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.606567" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.607950" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.606567" elapsed="0.001383"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.606567" elapsed="0.001383"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.588")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.597672" elapsed="0.010278"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.614918" level="INFO">${text} = ต้องมีหน้า Login (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.607950" elapsed="0.007997"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.615947" level="FAIL">'ต้องมีหน้า Login (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.615947" elapsed="0.000000">'ต้องมีหน้า Login (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.615947" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.615947" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.615947" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.615947" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.615947" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.615947" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.615947" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.590")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.607950" elapsed="0.007997"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.624480" level="INFO">${text} = เข้าสู่ระบบ (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.617691" elapsed="0.006789"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.625671" level="FAIL">'เข้าสู่ระบบ (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.625671" elapsed="0.000000">'เข้าสู่ระบบ (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.625671" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.625671" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.625671" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.626723" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.626723" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.625671" elapsed="0.001052"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.625671" elapsed="0.001052"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.592")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.617691" elapsed="0.009032"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.633380" level="INFO">${text} = ออกรายงาน (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.626723" elapsed="0.006657"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.634429" level="FAIL">'ออกรายงาน (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.634429" elapsed="0.000000">'ออกรายงาน (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.634429" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.634429" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.634429" elapsed="0.001144"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.635573" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.635573" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.634429" elapsed="0.001144"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.634429" elapsed="0.001144"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.594")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.626723" elapsed="0.008850"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.642292" level="INFO">${text} = งาน Func (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.635573" elapsed="0.006719"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.643303" level="FAIL">'งาน Func (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.643303" elapsed="0.000000">'งาน Func (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.644572" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.643303" elapsed="0.001269"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.644572" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.644572" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.644572" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.644572" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.644572" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.596")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.635573" elapsed="0.008999"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.652275" level="INFO">${text} = งาน NFR (Could)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.645584" elapsed="0.006691"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.653292" level="FAIL">'งาน NFR (Could)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.653292" elapsed="0.000000">'งาน NFR (Could)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.653292" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.652275" elapsed="0.001017"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.654369" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.654369" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.654369" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.653292" elapsed="0.001077"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.653292" elapsed="0.001077"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.598")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.644572" elapsed="0.009797"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.662001" level="INFO">${text} = หลังแก้ (Won't)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.654369" elapsed="0.007632"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.663082" level="FAIL">'หลังแก้ (Won't)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.663082" elapsed="0.000000">'หลังแก้ (Won't)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.663082" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.662001" elapsed="0.001081"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.663082" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.663082" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.664266" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.663082" elapsed="0.001184"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.663082" elapsed="0.001184"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.600")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.654369" elapsed="0.009897"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.671871" level="INFO">${text} = อย่าลบฉัน (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.664266" elapsed="0.007605"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.671871" level="FAIL">'อย่าลบฉัน (Must)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.671871" elapsed="0.000000">'อย่าลบฉัน (Must)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.671871" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.671871" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.671871" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.673311" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.673311" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.671871" elapsed="0.001440"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.671871" elapsed="0.001440"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.602")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.664266" elapsed="0.009045"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.681737" level="INFO">${text} = ยังไม่ถูกแตก (Should)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.673311" elapsed="0.008426"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-08-20T16:13:14.682775" level="FAIL">'ยังไม่ถูกแตก (Should)' does not contain 'มีงานผูก'</msg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-08-20T16:13:14.682775" elapsed="0.000000">'ยังไม่ถูกแตก (Should)' does not contain 'มีงานผูก'</status>
+</kw>
+<msg time="2026-08-20T16:13:14.682775" level="INFO">${contains} = False</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.681737" elapsed="0.001038"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.682775" elapsed="0.000000"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.682775" elapsed="0.000000"/>
+</kw>
+<return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.682775" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2026-08-20T16:13:14.682775" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.682775" elapsed="0.000000"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.604")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.673311" elapsed="0.009464"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.690963" level="INFO">${text} = มีงานผูก (Must)</msg>
+<var>${text}</var>
+<arg>${option}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.683944" elapsed="0.007019"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.690963" elapsed="0.000000"/>
+</kw>
+<msg time="2026-08-20T16:13:14.690963" level="INFO">${contains} = True</msg>
+<var>${contains}</var>
+<arg>Should Contain</arg>
+<arg>${text}</arg>
+<arg>${requirement_text}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.690963" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${contains}">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.696459" level="INFO">${value} = 0ac4a9b3-8c0a-4235-9005-26344d4a5cff</msg>
+<var>${value}</var>
+<arg>${option}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.692038" elapsed="0.005665"/>
+</kw>
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.697703" level="INFO">Selecting options from selection list 'css:[data-testid="task-requirement"]' by value 0ac4a9b3-8c0a-4235-9005-26344d4a5cff.</msg>
+<arg>css:[data-testid="task-requirement"]</arg>
+<arg>${value}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.697703" elapsed="0.053130"/>
+</kw>
+<return>
+<status status="PASS" start="2026-08-20T16:13:14.752235" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2026-08-20T16:13:14.690963" elapsed="0.061272"/>
+</branch>
+<status status="PASS" start="2026-08-20T16:13:14.690963" elapsed="0.061272"/>
+</if>
+<var name="${option}">&lt;selenium.webdriver.remote.webelement.WebElement (session="ceb72ce5bc91d5f9c3792cb93544237a", element="f.C460F2354B8CDC82231134E67A0E1C1A.d.73A6D7996871135DE4A34CE7F9FB6E3A.e.606")&gt;</var>
+<status status="PASS" start="2026-08-20T16:13:14.683944" elapsed="0.068291"/>
+</iter>
+<var>${option}</var>
+<value>@{options}</value>
+<status status="PASS" start="2026-08-20T16:13:14.575424" elapsed="0.176811"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>ไม่พบตัวเลือก "${requirement_text}" ใน dropdown</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2026-08-20T16:13:14.752235" elapsed="0.000000"/>
+</kw>
+<arg>${requirement_text}</arg>
+<doc>เลือก Requirement ต้นทาง (เลือกจากข้อความที่เห็น)</doc>
+<status status="PASS" start="2026-08-20T16:13:14.566179" elapsed="0.186056"/>
+</kw>
+<kw name="Select Task Role" owner="robot_keywords">
+<kw name="Select From List By Value" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.754241" level="INFO">Selecting options from selection list 'css:[data-testid="task-role"]' by value Tester.</msg>
+<arg>css:[data-testid="task-role"]</arg>
+<arg>${role}</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.753237" elapsed="0.060642"/>
+</kw>
+<arg>${role}</arg>
+<doc>เลือกตำแหน่งผู้รับผิดชอบ</doc>
+<status status="PASS" start="2026-08-20T16:13:14.753237" elapsed="0.060642"/>
+</kw>
+<kw name="Submit Task Form" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.815346" level="INFO">Clicking element 'css:[data-testid="task-submit"]'.</msg>
+<arg>css:[data-testid="task-submit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.815346" elapsed="0.053550"/>
+</kw>
+<doc>กดบันทึก Task</doc>
+<status status="PASS" start="2026-08-20T16:13:14.815346" elapsed="0.053550"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:.board-card__title</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.868896" elapsed="0.017541"/>
+</kw>
+<arg>งานลูก 2</arg>
+<arg>มีงานผูก</arg>
+<arg>Tester</arg>
+<doc>สร้าง Task ครบวงจร</doc>
+<status status="PASS" start="2026-08-20T16:13:14.429320" elapsed="0.457117"/>
+</kw>
+<kw name="Navigate To Requirement Page" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.887738" level="INFO">Clicking element 'css:[data-testid="nav-requirements"]'.</msg>
+<arg>css:[data-testid="nav-requirements"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.887437" elapsed="0.062615"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:h1</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.950052" elapsed="0.013982"/>
+</kw>
+<doc>ไปยังหน้าจัดการ Requirement</doc>
+<status status="PASS" start="2026-08-20T16:13:14.886437" elapsed="0.077597"/>
+</kw>
+<kw name="Open Card" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:14.965047" level="INFO">Clicking element 'xpath://span[contains(@class,'board-card__title') and text()='มีงานผูก']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:14.965047" elapsed="0.057770"/>
+</kw>
+<arg>มีงานผูก</arg>
+<doc>เปิดรายละเอียดของการ์ด</doc>
+<status status="PASS" start="2026-08-20T16:13:14.965047" elapsed="0.057770"/>
+</kw>
+<kw name="Click Delete Button" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:15.023827" level="INFO">Clicking element 'css:[data-testid="detail-delete"]'.</msg>
+<arg>css:[data-testid="detail-delete"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.023827" elapsed="0.048580"/>
+</kw>
+<doc>คลิกปุ่มลบ</doc>
+<status status="PASS" start="2026-08-20T16:13:15.022817" elapsed="0.050591"/>
+</kw>
+<kw name="Dialog Should Be Visible" owner="robot_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css:[role="dialog"]</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.073408" elapsed="0.011974"/>
+</kw>
+<doc>ตรวจสอบว่า dialog ยืนยันแสดงอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:15.073408" elapsed="0.013023"/>
+</kw>
+<kw name="Dialog Should Contain" owner="robot_keywords">
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:15.099942" level="INFO">Element 'css:[role="dialog"]' contains text '2 Tasks'.</msg>
+<arg>css:[role="dialog"]</arg>
+<arg>${text}</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.086431" elapsed="0.013511"/>
+</kw>
+<arg>2 Tasks</arg>
+<doc>ตรวจสอบข้อความใน dialog</doc>
+<status status="PASS" start="2026-08-20T16:13:15.086431" elapsed="0.013511"/>
+</kw>
+<kw name="Confirm Delete" owner="robot_keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:15.100957" level="INFO">Clicking element 'css:[data-testid="confirm-ok"]'.</msg>
+<arg>css:[data-testid="confirm-ok"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.100957" elapsed="0.055247"/>
+</kw>
+<doc>ยืนยันการลบ</doc>
+<status status="PASS" start="2026-08-20T16:13:15.099942" elapsed="0.056262"/>
+</kw>
+<kw name="Card Should Not Exist" owner="robot_keywords">
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:15.165990" level="INFO">Current page does not contain element 'xpath://span[contains(@class,'board-card__title') and text()='มีงานผูก']'.</msg>
+<arg>xpath://span[contains(@class,'board-card__title') and text()='${title}']</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.158145" elapsed="0.007845"/>
+</kw>
+<arg>มีงานผูก</arg>
+<doc>ตรวจสอบว่าการ์ดไม่มีอยู่</doc>
+<status status="PASS" start="2026-08-20T16:13:15.156204" elapsed="0.009786"/>
+</kw>
+<kw name="Nav Count Should Be" owner="robot_keywords">
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2026-08-20T16:13:15.180708" level="INFO">Element 'css:[data-testid="nav-tasks"] .sidebar__count' contains text '0'.</msg>
+<arg>css:[data-testid="nav-${module}"] .sidebar__count</arg>
+<arg>${count}</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.165990" elapsed="0.014718"/>
+</kw>
+<arg>tasks</arg>
+<arg>0</arg>
+<doc>ตรวจสอบตัวเลขนับในเมนูซ้าย</doc>
+<status status="PASS" start="2026-08-20T16:13:15.165990" elapsed="0.015992"/>
+</kw>
+<doc>Requirement มี Task ผูกอยู่ → dialog บอกจำนวน Task ที่จะถูกลบตาม</doc>
+<tag>cascade</tag>
+<tag>delete</tag>
+<tag>FR4.4</tag>
+<tag>M01</tag>
+<status status="PASS" start="2026-08-20T16:13:13.269288" elapsed="1.912694"/>
+</test>
+<kw name="Close Application" owner="robot_keywords" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-08-20T16:13:15.182985" elapsed="2.523401"/>
+</kw>
+<doc>ปิดเบราว์เซอร์</doc>
+<status status="PASS" start="2026-08-20T16:13:15.181982" elapsed="2.524404"/>
+</kw>
+<doc>ทดสอบโมดูลจัดการ Requirement (M01)
+ครอบคลุม FR1.1-FR1.7, FR4.3, FR4.4</doc>
+<status status="FAIL" start="2026-08-20T16:12:55.089644" elapsed="22.616742"/>
+</suite>
+<statistics>
+<total>
+<stat pass="11" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">cancel</stat>
+<stat pass="1" fail="0" skip="0">cascade</stat>
+<stat pass="2" fail="0" skip="0">category</stat>
+<stat pass="1" fail="0" skip="0">confirm</stat>
+<stat pass="2" fail="0" skip="0">create</stat>
+<stat pass="1" fail="0" skip="0">default</stat>
+<stat pass="2" fail="1" skip="0">delete</stat>
+<stat pass="1" fail="0" skip="0">edit</stat>
+<stat pass="2" fail="0" skip="0">filter</stat>
+<stat pass="2" fail="0" skip="0">FR1.1</stat>
+<stat pass="1" fail="0" skip="0">FR1.2</stat>
+<stat pass="2" fail="0" skip="0">FR1.3</stat>
+<stat pass="2" fail="0" skip="0">FR1.4</stat>
+<stat pass="1" fail="0" skip="0">FR1.5</stat>
+<stat pass="1" fail="1" skip="0">FR1.6</stat>
+<stat pass="1" fail="0" skip="0">FR4.3</stat>
+<stat pass="1" fail="0" skip="0">FR4.4</stat>
+<stat pass="1" fail="0" skip="0">happy-path</stat>
+<stat pass="11" fail="1" skip="0">M01</stat>
+<stat pass="2" fail="0" skip="0">priority</stat>
+<stat pass="1" fail="0" skip="0">search</stat>
+<stat pass="1" fail="0" skip="0">traceability</stat>
+<stat pass="2" fail="0" skip="0">validation</stat>
+<stat pass="1" fail="0" skip="0">warning</stat>
+</tag>
+<suite>
+<stat pass="11" fail="1" skip="0" id="s1" name="Requirement Management">Requirement Management</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
