@@ -7,8 +7,10 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest run src/shared src/modules",
-    "test:watch": "vitest watch src/shared src/modules",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:unit": "vitest run src/shared src/modules",
+    "test:e2e": "vitest run src/e2e",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test:perf": "vitest run src/perf"

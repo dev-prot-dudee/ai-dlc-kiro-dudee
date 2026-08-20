@@ -39,6 +39,30 @@ class MemoryStorage implements Storage {
   }
 }
 
+/**
+ * jsdom รุ่นที่ใช้อยู่ยังไม่มี `Blob.prototype.text()` ทั้งที่เบราว์เซอร์ทุกตัวที่
+ * รองรับมีมานานแล้ว โค้ดที่อ่านไฟล์ที่ผู้ใช้เลือก (Toolbar.handleFile) จึงล้ม
+ * ในสภาพแวดล้อมของ test เท่านั้น
+ *
+ * เติมให้โดยพึ่ง FileReader ที่ jsdom มีอยู่ ไม่แก้โค้ดแอปเพื่อเอาใจ test
+ */
+function installBlobText(): void {
+  if (typeof Blob === "undefined") return;
+  if (typeof Blob.prototype.text === "function") return;
+
+  Blob.prototype.text = function text(this: Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result ?? ""));
+      reader.onerror = () =>
+        reject(reader.error ?? new Error("อ่านเนื้อหาของไฟล์ไม่สำเร็จ"));
+      reader.readAsText(this);
+    });
+  };
+}
+
+installBlobText();
+
 function installStorage(): void {
   const storage = new MemoryStorage();
   const descriptor: PropertyDescriptor = {
