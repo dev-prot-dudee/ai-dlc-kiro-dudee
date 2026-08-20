@@ -1,0 +1,247 @@
+{
+  "stage": "code-generation",
+  "upstream_ids": [
+    "FR1.1",
+    "FR1.2",
+    "FR1.3",
+    "FR1.4",
+    "FR1.5",
+    "FR1.6",
+    "FR1.7",
+    "FR2.1",
+    "FR2.2",
+    "FR2.3",
+    "FR2.4",
+    "FR2.5",
+    "FR2.6",
+    "FR2.7",
+    "FR3.1",
+    "FR3.2",
+    "FR3.3",
+    "FR3.4",
+    "FR3.5",
+    "FR3.6",
+    "FR3.7",
+    "FR4.1",
+    "FR4.2",
+    "FR4.3",
+    "FR4.4",
+    "FR4.5",
+    "FR5.1",
+    "FR5.2",
+    "FR5.3",
+    "FR6.1",
+    "FR6.2",
+    "FR6.3",
+    "FR6.4",
+    "NFR1",
+    "NFR2",
+    "NFR3",
+    "NFR4",
+    "NFR5",
+    "NFR6",
+    "NFR7"
+  ],
+  "coverage": [
+    {
+      "id": "FR1.1",
+      "status": "OK",
+      "target": "src/modules/requirements/RequirementForm.tsx"
+    },
+    {
+      "id": "FR1.2",
+      "status": "OK",
+      "target": "src/modules/requirements/requirements.repo.ts"
+    },
+    {
+      "id": "FR1.3",
+      "status": "OK",
+      "target": "src/modules/requirements/requirements.repo.ts"
+    },
+    {
+      "id": "FR1.4",
+      "status": "OK",
+      "target": "src/modules/requirements/RequirementBoard.tsx"
+    },
+    {
+      "id": "FR1.5",
+      "status": "OK",
+      "target": "src/shared/repository.ts"
+    },
+    {
+      "id": "FR1.6",
+      "status": "OK",
+      "target": "src/shared/components/ConfirmDialog.tsx"
+    },
+    {
+      "id": "FR1.7",
+      "status": "OK",
+      "target": "src/shared/traceability.ts"
+    },
+    {
+      "id": "FR2.1",
+      "status": "OK",
+      "target": "src/modules/tasks/TaskForm.tsx"
+    },
+    {
+      "id": "FR2.2",
+      "status": "OK",
+      "target": "src/modules/tasks/tasks.repo.ts"
+    },
+    {
+      "id": "FR2.3",
+      "status": "OK",
+      "target": "src/modules/tasks/tasks.repo.ts"
+    },
+    {
+      "id": "FR2.4",
+      "status": "OK",
+      "target": "src/modules/tasks/TaskBoard.tsx"
+    },
+    {
+      "id": "FR2.5",
+      "status": "OK",
+      "target": "src/shared/repository.ts"
+    },
+    {
+      "id": "FR2.6",
+      "status": "OK",
+      "target": "src/modules/tasks/TaskBoard.tsx"
+    },
+    {
+      "id": "FR2.7",
+      "status": "OK",
+      "target": "src/shared/traceability.ts"
+    },
+    {
+      "id": "FR3.1",
+      "status": "OK",
+      "target": "src/modules/defects/DefectForm.tsx"
+    },
+    {
+      "id": "FR3.2",
+      "status": "OK",
+      "target": "src/modules/defects/defects.repo.ts"
+    },
+    {
+      "id": "FR3.3",
+      "status": "OK",
+      "target": "src/modules/defects/defects.repo.ts"
+    },
+    {
+      "id": "FR3.4",
+      "status": "OK",
+      "target": "src/modules/defects/defects.repo.ts"
+    },
+    {
+      "id": "FR3.5",
+      "status": "OK",
+      "target": "src/modules/defects/DefectBoard.tsx"
+    },
+    {
+      "id": "FR3.6",
+      "status": "OK",
+      "target": "src/shared/repository.ts"
+    },
+    {
+      "id": "FR3.7",
+      "status": "OK",
+      "target": "src/shared/components/BoardColumn.tsx"
+    },
+    {
+      "id": "FR4.1",
+      "status": "OK",
+      "target": "src/shared/traceability.ts"
+    },
+    {
+      "id": "FR4.2",
+      "status": "OK",
+      "target": "src/shared/traceability.ts"
+    },
+    {
+      "id": "FR4.3",
+      "status": "OK",
+      "target": "src/modules/requirements/RequirementBoard.tsx"
+    },
+    {
+      "id": "FR4.4",
+      "status": "OK",
+      "target": "src/modules/requirements/RequirementBoard.tsx"
+    },
+    {
+      "id": "FR4.5",
+      "status": "OK",
+      "target": "src/modules/tasks/TaskBoard.tsx"
+    },
+    {
+      "id": "FR5.1",
+      "status": "OK",
+      "target": "src/shared/components/UserPicker.tsx"
+    },
+    {
+      "id": "FR5.2",
+      "status": "OK",
+      "target": "src/shared/DataContext.tsx"
+    },
+    {
+      "id": "FR5.3",
+      "status": "OK",
+      "target": "src/shared/users.ts"
+    },
+    {
+      "id": "FR6.1",
+      "status": "OK",
+      "target": "src/shared/storage.ts"
+    },
+    {
+      "id": "FR6.2",
+      "status": "OK",
+      "target": "src/shared/storage.ts"
+    },
+    {
+      "id": "FR6.3",
+      "status": "OK",
+      "target": "src/shared/components/ErrorBoundary.tsx"
+    },
+    {
+      "id": "FR6.4",
+      "status": "OK",
+      "target": "src/shared/storage.ts"
+    },
+    {
+      "id": "NFR1",
+      "status": "Deferred",
+      "target": "วัดด้วย Lighthouse ในขั้น Build and Test — ยังไม่มี automated test"
+    },
+    {
+      "id": "NFR2",
+      "status": "Deferred",
+      "target": "วัดด้วย Performance API ที่ข้อมูล 500 รายการ ในขั้น Build and Test"
+    },
+    {
+      "id": "NFR3",
+      "status": "Deferred",
+      "target": "สร้างข้อมูลทดสอบ 500 รายการแล้ววัด ในขั้น Build and Test"
+    },
+    {
+      "id": "NFR4",
+      "status": "Deferred",
+      "target": "ทดสอบข้ามเบราว์เซอร์ด้วยมือ ในขั้น Build and Test"
+    },
+    {
+      "id": "NFR5",
+      "status": "OK",
+      "target": "src/shared/components/components.spec.tsx"
+    },
+    {
+      "id": "NFR6",
+      "status": "OK",
+      "target": "src/modules/requirements/requirements.spec.ts"
+    },
+    {
+      "id": "NFR7",
+      "status": "OK",
+      "target": "vite.config.ts"
+    }
+  ]
+}
