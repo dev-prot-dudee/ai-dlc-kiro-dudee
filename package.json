@@ -10,7 +10,8 @@
     "test": "vitest run src/shared src/modules",
     "test:watch": "vitest watch src/shared src/modules",
     "lint": "eslint src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:perf": "vitest run src/perf"
   },
   "dependencies": {
     "react": "18.3.1",
