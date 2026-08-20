@@ -1,4 +1,6 @@
 import { ModulePage, type ModulePageConfig } from "../../shared/components/ModulePage";
+import { DndBoardView } from "../../shared/components/DndBoardView";
+import { DndBoardCard } from "../../shared/components/DndBoardCard";
 import { TaskForm } from "./TaskForm";
 import { tasksRepo } from "./tasks.repo";
 import { defectsRepo } from "../defects/defects.repo";
@@ -18,7 +20,7 @@ import {
  * ของแต่ละตำแหน่งได้ทันทีจากตัวเลขบนหัว column
  */
 export function TaskBoard() {
-  const { requirements, tasks, defects, currentUserId } = useData();
+  const { requirements, tasks, defects, currentUserId, refresh } = useData();
 
   function requirementTitle(id: string): string {
     return requirements.find((req) => req.id === id)?.title ?? "(Requirement ถูกลบแล้ว)";
@@ -138,7 +140,7 @@ export function TaskBoard() {
             own.length === 0 ? (
               <p>ยังไม่พบ Defect</p>
             ) : (
-              <ul className="trace-list">
+              <ul className="list-none m-0 p-0 flex flex-col gap-3">
                 {own.map((defect) => (
                   <li key={defect.id}>
                     {defect.title} · {defect.type} · {defect.severity}
@@ -148,6 +150,56 @@ export function TaskBoard() {
             ),
         },
       ];
+    },
+
+    renderBoard: ({ items, onOpenItem, onAdd }) => {
+      const groups = ROLES.map((role) => ({
+        key: role,
+        label: role,
+        color: ROLE_COLORS[role] ?? ("gray" as const),
+        items: items.filter((item) => item.role === role),
+      }));
+
+      function handleMoveItem(itemId: string, _fromGroup: string, toGroup: string): void {
+        const task = tasks.find((t) => t.id === itemId);
+        if (!task) return;
+        const newRole = toGroup as Role;
+        if (!ROLES.includes(newRole)) return;
+        // อัปเดต role ของ Task ใน storage
+        tasksRepo.update(task.id, {
+          title: task.title,
+          description: task.description,
+          requirementId: task.requirementId,
+          role: newRole,
+          assigneeId: task.assigneeId,
+        });
+        refresh();
+      }
+
+      return (
+        <DndBoardView
+          groups={groups}
+          testId="board"
+          onAdd={onAdd}
+          onMoveItem={handleMoveItem}
+          renderCard={(item) => (
+            <DndBoardCard
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              onOpen={() => onOpenItem(item)}
+              testId={`card-${item.id}`}
+              meta={
+                <>
+                  <span>{userName(item.assigneeId)}</span>
+                  <span>◎ {requirementTitle(item.requirementId)}</span>
+                  <span>{countDefectsForTask(item.id, defects)} Defects</span>
+                </>
+              }
+            />
+          )}
+        />
+      );
     },
 
     renderForm: ({ existing, groupKey, onDone, onCancel }) => (

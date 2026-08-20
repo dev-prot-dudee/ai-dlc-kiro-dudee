@@ -18,17 +18,10 @@ export interface BoardViewProps<T> {
 
 /**
  * Board ที่จัดกลุ่มรายการเป็น column เรียงแนวนอน เลื่อนได้เมื่อเกินความกว้างจอ
- *
- * รอบนี้ไม่มี status workflow จึงจัดกลุ่มด้วย field ที่มีอยู่ต่างกันในแต่ละ module:
- * Requirements ใช้ MoSCoW, Tasks ใช้ตำแหน่ง, Defects ใช้ประเภท
- *
- * ไม่รองรับการลากการ์ดข้าม column โดยเจตนา — column แทนค่าของ field จริง
- * การลากข้ามจึงเท่ากับแก้ข้อมูลที่มีนัยสำคัญ (เช่นเปลี่ยนประเภท defect
- * ซึ่งเปลี่ยนว่าใครรับผิด) การแก้ค่าทำผ่านฟอร์มแก้ไขเท่านั้น
  */
 export function BoardView<T>({ groups, renderCard, onAdd, testId }: BoardViewProps<T>) {
   return (
-    <div className="board" data-testid={testId}>
+    <div className="flex flex-col sm:flex-row gap-4 items-start sm:overflow-x-auto pb-5" data-testid={testId}>
       {groups.map((group) => (
         <BoardColumn
           key={group.key}

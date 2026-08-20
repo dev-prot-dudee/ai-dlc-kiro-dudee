@@ -10,17 +10,21 @@ const TABS: { mode: ViewMode; icon: string; label: string }[] = [
   { mode: "list", icon: "☰", label: "List" },
 ];
 
-/** แถบสลับมุมมอง — tab ที่เลือกมีพื้นหลังเทาอ่อน ตามภาพต้นแบบ */
+/** แถบสลับมุมมอง — tab ที่เลือกมีพื้นหลังน้ำเงินอ่อน */
 export function ViewTabs({ value, onChange }: ViewTabsProps) {
   return (
-    <div className="view-tabs" role="tablist" aria-label="เลือกมุมมอง">
+    <div className="flex gap-1" role="tablist" aria-label="เลือกมุมมอง">
       {TABS.map((tab) => (
         <button
           key={tab.mode}
           type="button"
           role="tab"
           aria-selected={value === tab.mode}
-          className={value === tab.mode ? "view-tab view-tab--active" : "view-tab"}
+          className={`inline-flex items-center gap-2 px-4 py-2 border-none rounded text-small min-h-[36px] transition-all duration-fast ${
+            value === tab.mode
+              ? "bg-primary/[.08] text-primary font-semibold"
+              : "bg-transparent text-neutral-300 font-normal hover:bg-black/[.03] hover:text-neutral-600"
+          }`}
           onClick={() => onChange(tab.mode)}
           data-testid={`view-tab-${tab.mode}`}
         >
