@@ -101,11 +101,124 @@ describe("Requirement Management", () => {
     });
   });
 
+  describe("การบังคับระบุผู้รับผิดชอบ (FR-01)", () => {
+    it("เมื่อไม่ระบุ ownerId ต้องถูกปฏิเสธ", () => {
+      expect(() =>
+        requirementsRepo.create(draft({ ownerId: "" })),
+      ).toThrow(ValidationError);
+      expect(requirementsRepo.list()).toHaveLength(0);
+    });
+
+    it("ownerId ที่เป็นช่องว่างล้วน ต้องถูกปฏิเสธ", () => {
+      expect(() =>
+        requirementsRepo.create(draft({ ownerId: "   " })),
+      ).toThrow(ValidationError);
+    });
+  });
+
   describe("การลบ (FR1.6)", () => {
     it("เมื่อลบแล้วต้องหายจากรายการ", () => {
       const created = requirementsRepo.create(draft());
       requirementsRepo.remove(created.id);
       expect(requirementsRepo.find(created.id)).toBeNull();
+    });
+  });
+
+  describe("Cascade Delete — ลบ Requirement แล้ว Task และ Defect ต้องหายตาม (FR-06, FR4.4)", () => {
+    it("ลบ Requirement ที่มี Task ผูกอยู่ ต้องลบ Task ตามไปด้วย", () => {
+      const req = requirementsRepo.create(draft());
+      const task1 = tasksRepo.create({
+        title: "งานที่ 1",
+        description: "",
+        requirementId: req.id,
+        assigneeId: "u2",
+        role: "Dev",
+      });
+      const task2 = tasksRepo.create({
+        title: "งานที่ 2",
+        description: "",
+        requirementId: req.id,
+        assigneeId: "u3",
+        role: "Tester",
+      });
+
+      // ลบ Task ที่ผูกกับ Requirement นี้ (cascade)
+      tasksRepo.removeWhere((t) => t.requirementId === req.id);
+      requirementsRepo.remove(req.id);
+
+      expect(requirementsRepo.find(req.id)).toBeNull();
+      expect(tasksRepo.find(task1.id)).toBeNull();
+      expect(tasksRepo.find(task2.id)).toBeNull();
+      expect(tasksRepo.list()).toHaveLength(0);
+    });
+
+    it("ลบ Requirement ที่มี Task + Defect ผูกอยู่ ต้องลบทั้งสายตามไปด้วย", () => {
+      const req = requirementsRepo.create(draft());
+      const task = tasksRepo.create({
+        title: "งานหลัก",
+        description: "",
+        requirementId: req.id,
+        assigneeId: "u2",
+        role: "Dev",
+      });
+      const defect1 = defectsRepo.create({
+        title: "ปัญหาที่ 1",
+        description: "",
+        taskId: task.id,
+        type: "Code Bug",
+        severity: "Medium",
+        reporterId: "u4",
+      });
+      const defect2 = defectsRepo.create({
+        title: "ปัญหาที่ 2",
+        description: "",
+        taskId: task.id,
+        type: "SA Gap",
+        severity: "High",
+        reporterId: "u4",
+      });
+
+      // Cascade delete: Defect → Task → Requirement
+      const taskIds = new Set(
+        tasksRepo.list().filter((t) => t.requirementId === req.id).map((t) => t.id),
+      );
+      defectsRepo.removeWhere((d) => taskIds.has(d.taskId));
+      tasksRepo.removeWhere((t) => t.requirementId === req.id);
+      requirementsRepo.remove(req.id);
+
+      expect(requirementsRepo.find(req.id)).toBeNull();
+      expect(tasksRepo.find(task.id)).toBeNull();
+      expect(defectsRepo.find(defect1.id)).toBeNull();
+      expect(defectsRepo.find(defect2.id)).toBeNull();
+      expect(defectsRepo.list()).toHaveLength(0);
+    });
+
+    it("ลบ Requirement แล้ว Task/Defect ที่ผูกกับ Requirement อื่นต้องไม่หาย", () => {
+      const reqA = requirementsRepo.create(draft({ title: "A" }));
+      const reqB = requirementsRepo.create(draft({ title: "B" }));
+      const taskA = tasksRepo.create({
+        title: "งานของ A",
+        description: "",
+        requirementId: reqA.id,
+        assigneeId: "u2",
+        role: "Dev",
+      });
+      const taskB = tasksRepo.create({
+        title: "งานของ B",
+        description: "",
+        requirementId: reqB.id,
+        assigneeId: "u3",
+        role: "Dev",
+      });
+
+      // Cascade ลบเฉพาะ reqA
+      tasksRepo.removeWhere((t) => t.requirementId === reqA.id);
+      requirementsRepo.remove(reqA.id);
+
+      // reqB และ taskB ยังอยู่
+      expect(requirementsRepo.find(reqB.id)).not.toBeNull();
+      expect(tasksRepo.find(taskB.id)).not.toBeNull();
+      expect(tasksRepo.find(taskA.id)).toBeNull();
     });
   });
 
