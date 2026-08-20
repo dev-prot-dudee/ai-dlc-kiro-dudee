@@ -35,7 +35,7 @@
 
 **X. Other (please specify)**
 
-[Answer]:
+[Answer]: B — AWS S3 + CloudFront โดยใช้ AWS CLI
 
 ---
 
