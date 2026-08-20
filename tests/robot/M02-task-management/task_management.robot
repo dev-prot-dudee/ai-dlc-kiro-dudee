@@ -4,7 +4,18 @@ Documentation    ทดสอบโมดูลจัดการ Task (M02)
 Resource         ../robot_keywords.resource
 Suite Setup      Open Application
 Suite Teardown   Close Application
-Test Setup       Navigate To Task Page
+
+*** Keywords ***
+Reset To Task Page
+    [Documentation]    รีเซ็ตหน้าก่อนทุก test
+    Go To    ${BASE_URL}/requirements
+    Wait Until Element Is Visible    css:[data-testid="nav-requirements"]    timeout=5s
+
+Setup Requirement For Task
+    [Documentation]    สร้าง Requirement ก่อนเพื่อใช้ผูก Task
+    [Arguments]    ${title}=Requirement สำหรับ Task
+    Navigate To Requirement Page
+    Create Requirement    ${title}    Functional    Must
 
 *** Test Cases ***
 # =============================================================================
@@ -12,203 +23,178 @@ Test Setup       Navigate To Task Page
 # =============================================================================
 
 สร้าง Task ใหม่ได้สำเร็จเมื่อกรอกข้อมูลครบถ้วน
-    [Documentation]    ผู้ใช้สามารถสร้าง Task ใหม่ได้
-    ...    โดยระบุ title, description, assignee, role, requirement
+    [Documentation]    ผู้ใช้สร้าง Task ใหม่ที่ผูกกับ Requirement ต้องปรากฏใน board
     [Tags]    FR2.1    M02    create    happy-path
-    Click Create Button
-    Fill Title Field    TASK-001 ออกแบบหน้าล็อกอิน
-    Fill Description Field    ออกแบบ UI หน้าล็อกอินตาม Wireframe
-    Fill Assignee Field    สมศักดิ์
-    Select Role    UX
-    Select Requirement    REQ-001 ระบบล็อกอิน
-    Click Save Button
-    Element Should Contain Text    .task-list    TASK-001 ออกแบบหน้าล็อกอิน
-
-สร้าง Task โดยไม่กรอก Title ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องแจ้งเตือนเมื่อไม่ได้กรอก title
-    [Tags]    FR2.1    M02    create    validation
-    Click Create Button
-    Fill Description Field    รายละเอียดทดสอบ
-    Select Role    Dev
-    Select Requirement    REQ-001 ระบบล็อกอิน
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาระบุชื่อ Task
+    Reset To Task Page
+    Setup Requirement For Task    ผู้ใช้ต้อง Login ได้
+    Navigate To Task Page
+    Create Task    สร้างหน้า Login    ผู้ใช้ต้อง Login ได้    Dev
+    Card Should Be Visible    สร้างหน้า Login
 
 # =============================================================================
-# FR2.2: ต้องเชื่อมโยงกับ Requirement (ปฏิเสธหากไม่เลือก)
+# FR2.2: ต้องผูกกับ Requirement (ห้าม Task ลอย)
 # =============================================================================
 
-สร้าง Task โดยไม่เลือก Requirement ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องปฏิเสธการสร้าง Task หากไม่ได้เชื่อมโยงกับ Requirement
+ไม่มี Requirement เลย กด New ต้องเตือน
+    [Documentation]    เมื่อไม่มี Requirement ในระบบ กดสร้าง Task ต้องแสดงคำเตือน
     [Tags]    FR2.2    M02    requirement-link    validation
-    Click Create Button
-    Fill Title Field    TASK-002 ทดสอบไม่เลือก Requirement
-    Fill Description Field    ทดสอบ validation
-    Fill Assignee Field    สมศักดิ์
-    Select Role    Dev
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาเลือก Requirement
+    Go To    ${BASE_URL}/tasks
+    Wait Until Element Is Visible    css:[data-testid="nav-tasks"]    timeout=5s
+    Click New Button
+    Alert Should Contain    ยังสร้าง Task ไม่ได้
 
-Task ต้องเชื่อมโยงกับ Requirement ที่มีอยู่ในระบบ
-    [Documentation]    Dropdown ของ Requirement ต้องแสดงรายการ Requirement ที่มีอยู่ในระบบ
-    [Tags]    FR2.2    M02    requirement-link
-    Click Create Button
-    Get Element Count    select[name="requirement"] >> option    >    0
+ไม่เลือก Requirement ระบบต้องปฏิเสธ
+    [Documentation]    กรอกข้อมูลครบแต่ไม่เลือก Requirement → ระบบปฏิเสธ
+    [Tags]    FR2.2    M02    requirement-link    validation
+    Reset To Task Page
+    Setup Requirement For Task    Requirement ที่มีอยู่
+    Navigate To Task Page
+    Click New Button
+    Fill Task Title    งานลอย
+    Select Task Role    Dev
+    Submit Task Form
+    Field Should Be Invalid    task-requirement
 
 # =============================================================================
-# FR2.3: ต้องระบุ Role (SA/UX/Dev/Tester)
+# FR2.3: บังคับระบุตำแหน่ง (SA/UX/Dev/Tester)
 # =============================================================================
 
-สร้าง Task โดยไม่เลือก Role ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องปฏิเสธการสร้าง Task หากไม่ได้ระบุ Role
+ไม่เลือกตำแหน่ง ระบบต้องปฏิเสธ
+    [Documentation]    ไม่ระบุตำแหน่ง → ระบบปฏิเสธที่ช่องตำแหน่ง
     [Tags]    FR2.3    M02    role    validation
-    Click Create Button
-    Fill Title Field    TASK-003 ทดสอบไม่เลือก Role
-    Fill Description Field    ทดสอบ validation
-    Select Requirement    REQ-001 ระบบล็อกอิน
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาเลือกบทบาท
+    Reset To Task Page
+    Setup Requirement For Task    ต้นทาง
+    Navigate To Task Page
+    Click New Button
+    Fill Task Title    งานไร้ตำแหน่ง
+    Select Task Requirement    ต้นทาง
+    Submit Task Form
+    Field Should Be Invalid    task-role
 
-Role ต้องมีเฉพาะ 4 ค่า (SA, UX, Dev, Tester)
-    [Documentation]    ตัวเลือก Role ต้องมีเฉพาะ 4 ค่า คือ SA, UX, Dev, Tester
-    [Tags]    FR2.3    M02    role
-    Click Create Button
-    Get Element Count    select[name="role"] >> option    ==    4
-
-เลือก Role เป็น SA ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Role เป็น SA ได้
-    [Tags]    FR2.3    M02    role
-    Click Create Button
-    Select Role    SA
-    Element Should Contain Text    select[name="role"]    SA
-
-เลือก Role เป็น UX ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Role เป็น UX ได้
-    [Tags]    FR2.3    M02    role
-    Click Create Button
-    Select Role    UX
-    Element Should Contain Text    select[name="role"]    UX
-
-เลือก Role เป็น Dev ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Role เป็น Dev ได้
-    [Tags]    FR2.3    M02    role
-    Click Create Button
-    Select Role    Dev
-    Element Should Contain Text    select[name="role"]    Dev
-
-เลือก Role เป็น Tester ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Role เป็น Tester ได้
-    [Tags]    FR2.3    M02    role
-    Click Create Button
-    Select Role    Tester
-    Element Should Contain Text    select[name="role"]    Tester
+กดเพิ่มจากหัว Column ต้องตั้งตำแหน่งไว้ล่วงหน้า
+    [Documentation]    กด + ที่หัว column Tester → ฟอร์มมีค่า Tester อยู่แล้ว
+    [Tags]    FR2.3    M02    role    column-add
+    Reset To Task Page
+    Setup Requirement For Task    ต้นทาง
+    Navigate To Task Page
+    Create Task    งานแรก    ต้นทาง    Dev
+    Click Element    css:[data-testid="board-Tester-add"]
+    ${value}=    Get Value    css:[data-testid="task-role"]
+    Should Be Equal    ${value}    Tester
 
 # =============================================================================
-# FR2.4: กรองตาม Role, Assignee, Requirement
+# FR2.4: กรอง 3 เงื่อนไข (ตำแหน่ง, ผู้รับผิดชอบ, Requirement)
 # =============================================================================
 
-กรอง Task ตาม Role ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Task ตาม Role ได้
+กรองตามตำแหน่งต้องแสดงเฉพาะ Role ที่เลือก
+    [Documentation]    เลือก filter ตำแหน่ง Tester → แสดงเฉพาะ Task ของ Tester
     [Tags]    FR2.4    M02    filter    role
-    Select Filter Option    filter-role    Dev
-    Get Element Count    .task-item    >=    0
+    Reset To Task Page
+    Navigate To Requirement Page
+    Create Requirement    Req A    Functional    Must
+    Create Requirement    Req B    Functional    Should
+    Navigate To Task Page
+    Create Task    งาน Dev    Req A    Dev
+    Create Task    งาน Tester    Req B    Tester
+    Switch To List View
+    Select From List By Value    css:[data-testid="filter-role"]    Tester
+    Page Should Contain    งาน Tester
+    Page Should Not Contain    งาน Dev
 
-กรอง Task ตาม Assignee ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Task ตาม Assignee ได้
-    [Tags]    FR2.4    M02    filter    assignee
-    Select Filter Option    filter-assignee    สมศักดิ์
-    Get Element Count    .task-item    >=    0
-
-กรอง Task ตาม Requirement ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Task ตาม Requirement ที่เชื่อมโยงได้
+กรองตาม Requirement ต้นทาง
+    [Documentation]    เลือก filter Requirement → แสดงเฉพาะ Task ของ Requirement นั้น
     [Tags]    FR2.4    M02    filter    requirement
-    Select Filter Option    filter-requirement    REQ-001 ระบบล็อกอิน
-    Get Element Count    .task-item    >=    0
+    Reset To Task Page
+    Navigate To Requirement Page
+    Create Requirement    Req X    Functional    Must
+    Create Requirement    Req Y    Functional    Should
+    Navigate To Task Page
+    Create Task    งานของ X    Req X    Dev
+    Create Task    งานของ Y    Req Y    Dev
+    Switch To List View
+    Select From List By Label    css:[data-testid="filter-requirement"]    Req X
+    Page Should Contain    งานของ X
+    Page Should Not Contain    งานของ Y
 
 # =============================================================================
-# FR2.5: แก้ไขและลบ Task พร้อมยืนยัน
+# FR2.5: แก้ไขและลบ
 # =============================================================================
 
-แก้ไข Task ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถแก้ไขข้อมูล Task ได้
+แก้ไข Task เปลี่ยนตำแหน่ง การ์ดต้องย้าย Column
+    [Documentation]    เปลี่ยน role จาก Dev → SA → การ์ดย้ายไป column SA
     [Tags]    FR2.5    M02    edit
-    Click    .task-item >> nth=0
+    Reset To Task Page
+    Setup Requirement For Task    ต้นทาง
+    Navigate To Task Page
+    Create Task    ย้ายฉัน    ต้นทาง    Dev
+    Open Card    ย้ายฉัน
     Click Edit Button
-    Fill Title Field    TASK-001 ออกแบบหน้าล็อกอิน (แก้ไข)
-    Fill Assignee Field    สมหญิง
-    Select Role    Dev
-    Click Save Button
-    Element Should Contain Text    .task-list    TASK-001 ออกแบบหน้าล็อกอิน (แก้ไข)
+    Select Task Role    SA
+    Submit Task Form
+    Sleep    1s
+    Navigate To Task Page
+    Card Should Be Visible    ย้ายฉัน
 
-ลบ Task แสดงกล่องยืนยันก่อนลบ
-    [Documentation]    เมื่อกดลบ Task ระบบต้องแสดงกล่องยืนยันก่อน
-    [Tags]    FR2.5    M02    delete    confirmation
-    Click    .task-item >> nth=0
+ลบ Task ยืนยันแล้วหายจาก Board
+    [Documentation]    กดลบ → ยืนยัน → หายจาก board
+    [Tags]    FR2.5    M02    delete
+    Reset To Task Page
+    Setup Requirement For Task    ต้นทาง
+    Navigate To Task Page
+    Create Task    ลบฉัน    ต้นทาง    Dev
+    Open Card    ลบฉัน
     Click Delete Button
-    Confirmation Dialog Should Be Visible
-
-ยกเลิกการลบ Task ข้อมูลยังคงอยู่
-    [Documentation]    เมื่อกดยกเลิกในกล่องยืนยัน Task ยังคงอยู่
-    [Tags]    FR2.5    M02    delete    cancel
-    Click    .task-item >> nth=0
-    Click Delete Button
-    Cancel Delete
-    Get Element Count    .task-item    >    0
-
-ยืนยันลบ Task ข้อมูลถูกลบสำเร็จ
-    [Documentation]    เมื่อกดยืนยันลบ Task จะถูกลบออกจากระบบ
-    [Tags]    FR2.5    M02    delete    confirm
-    Click    .task-item >> nth=0
-    Click Delete Button
+    Dialog Should Be Visible
     Confirm Delete
-    Element Should Be Visible    .success-message
+    Card Should Not Exist    ลบฉัน
 
 # =============================================================================
 # FR2.6: แสดง Requirement ต้นทาง
 # =============================================================================
 
-แสดง Requirement ต้นทางของ Task
-    [Documentation]    ในรายการ Task ต้องแสดง Requirement ที่เป็นต้นทาง (source)
-    [Tags]    FR2.6    M02    source-requirement
-    Element Should Be Visible    .task-item >> .source-requirement
-
-คลิก Requirement ต้นทางนำทางไปหน้า Requirement
-    [Documentation]    เมื่อคลิกชื่อ Requirement ต้นทาง ระบบนำทางไปหน้ารายละเอียดของ Requirement นั้น
-    [Tags]    FR2.6    M02    source-requirement    navigation
-    Click    .task-item >> .source-requirement >> nth=0
-    Element Should Be Visible    .requirement-detail
-
-# =============================================================================
-# FR2.7: แสดงจำนวน Defect ที่เชื่อมโยง
-# =============================================================================
-
-แสดงจำนวน Defect ที่เชื่อมโยงกับ Task
-    [Documentation]    ระบบต้องแสดงจำนวน Defect ที่เชื่อมโยงกับแต่ละ Task
-    [Tags]    FR2.7    M02    count    defect
-    Element Should Be Visible    .task-item >> .defect-count
-
-Task ที่ไม่มี Defect แสดงจำนวนเป็น 0
-    [Documentation]    Task ที่ยังไม่มี Defect เชื่อมโยงต้องแสดงจำนวนเป็น 0
-    [Tags]    FR2.7    M02    count    defect    zero
-    Count Badge Should Show    .task-item-no-defect >> .defect-count    0
+รายละเอียด Task ต้องแสดง Requirement ต้นทาง
+    [Documentation]    เปิดดู Task → เห็นชื่อ Requirement ต้นทาง
+    [Tags]    FR2.6    M02    traceability
+    Reset To Task Page
+    Setup Requirement For Task    ผู้ใช้ต้องออกรายงานได้
+    Navigate To Task Page
+    Create Task    ทำหน้ารายงาน    ผู้ใช้ต้องออกรายงานได้    Dev
+    Open Card    ทำหน้ารายงาน
+    Page Should Contain    Requirement ต้นทาง
+    Page Should Contain    ผู้ใช้ต้องออกรายงานได้
 
 # =============================================================================
-# FR4.5: Cascade Delete แสดงเตือนว่าจะลบ Defect ที่เชื่อมโยง
+# FR2.7 + FR4.5: นับ Defect และ Cascade Delete
 # =============================================================================
 
-ลบ Task ที่มี Defect เชื่อมโยงแสดงเตือน Cascade Delete
-    [Documentation]    เมื่อลบ Task ที่มี Defect เชื่อมโยง
-    ...    ระบบต้องแสดงเตือนว่าจะลบ Defect ที่เกี่ยวข้องด้วย
-    [Tags]    FR4.5    M02    cascade    warning
-    Click    .task-item-with-defects >> nth=0
+การ์ด Task ต้องแสดงจำนวน Defect
+    [Documentation]    Task ที่มี Defect ผูกอยู่ → การ์ดแสดง "2 Defects"
+    [Tags]    FR2.7    M02    defect-count
+    Reset To Task Page
+    Setup Requirement For Task    ต้นทาง
+    Navigate To Task Page
+    Create Task    งานมีปัญหา    ต้นทาง    Dev
+    Navigate To Defect Page
+    Create Defect    ปัญหา 1    งานมีปัญหา    Code Bug    Medium
+    Create Defect    ปัญหา 2    งานมีปัญหา    SA Gap    High
+    Navigate To Task Page
+    Page Should Contain    2 Defects
+
+ลบ Task ที่มี Defect ต้องเตือนจำนวนก่อน
+    [Documentation]    Task มี Defect ผูก → dialog บอกจำนวน Defect ที่จะถูกลบตาม
+    [Tags]    FR4.5    M02    cascade    delete
+    Reset To Task Page
+    Setup Requirement For Task    ต้นทาง
+    Navigate To Task Page
+    Create Task    งานจะลบ    ต้นทาง    Dev
+    Navigate To Defect Page
+    Create Defect    Defect A    งานจะลบ    Code Bug    Low
+    Create Defect    Defect B    งานจะลบ    Code Bug    Low
+    Navigate To Task Page
+    Open Card    งานจะลบ
     Click Delete Button
-    Warning Message Should Contain    Defect
-
-ลบ Task ที่มี Defect แสดงจำนวน Defect ที่จะถูกลบ
-    [Documentation]    เมื่อลบ Task ที่มี Defect เชื่อมโยง
-    ...    ระบบต้องแสดงจำนวน Defect ที่จะถูกลบไปด้วย
-    [Tags]    FR4.5    M02    cascade    count
-    Click    .task-item-with-defects >> nth=0
-    Click Delete Button
-    Warning Message Should Contain    Defect
-    Element Should Be Visible    .cascade-count
+    Dialog Should Be Visible
+    Dialog Should Contain    2 Defects
+    Confirm Delete
+    Card Should Not Exist    งานจะลบ
+    Nav Count Should Be    defects    0

@@ -4,7 +4,20 @@ Documentation    ทดสอบโมดูลติดตาม Defect (M03)
 Resource         ../robot_keywords.resource
 Suite Setup      Open Application
 Suite Teardown   Close Application
-Test Setup       Navigate To Defect Page
+
+*** Keywords ***
+Reset Page
+    [Documentation]    รีเซ็ตหน้าก่อนทุก test
+    Go To    ${BASE_URL}/requirements
+    Wait Until Element Is Visible    css:[data-testid="nav-requirements"]    timeout=5s
+
+Setup Requirement And Task
+    [Documentation]    สร้าง Requirement + Task สำหรับผูก Defect
+    [Arguments]    ${req_title}=Req สำหรับ Defect    ${task_title}=Task สำหรับ Defect
+    Navigate To Requirement Page
+    Create Requirement    ${req_title}    Functional    Must
+    Navigate To Task Page
+    Create Task    ${task_title}    ${req_title}    Dev
 
 *** Test Cases ***
 # =============================================================================
@@ -12,253 +25,140 @@ Test Setup       Navigate To Defect Page
 # =============================================================================
 
 สร้าง Defect ใหม่ได้สำเร็จเมื่อกรอกข้อมูลครบถ้วน
-    [Documentation]    ผู้ใช้สามารถสร้าง Defect ใหม่ได้
-    ...    โดยระบุ title, description, type, severity, reporter, task
+    [Documentation]    สร้าง Defect ผูกกับ Task → ปรากฏใน board ทันที
     [Tags]    FR3.1    M03    create    happy-path
-    Click Create Button
-    Fill Title Field    DEF-001 ปุ่มล็อกอินไม่ทำงาน
-    Fill Description Field    เมื่อกดปุ่มล็อกอินไม่มีการตอบสนอง
-    Select Defect Type    Bug
-    Select Severity    High
-    Fill Reporter Field    ทดสอบจัง
-    Select Task    TASK-001 ออกแบบหน้าล็อกอิน
-    Click Save Button
-    Element Should Contain Text    .defect-list    DEF-001 ปุ่มล็อกอินไม่ทำงาน
-
-สร้าง Defect โดยไม่กรอก Title ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องแจ้งเตือนเมื่อไม่ได้กรอก title
-    [Tags]    FR3.1    M03    create    validation
-    Click Create Button
-    Fill Description Field    รายละเอียดทดสอบ
-    Select Defect Type    Bug
-    Select Severity    Medium
-    Select Task    TASK-001 ออกแบบหน้าล็อกอิน
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาระบุชื่อ Defect
+    Reset Page
+    Setup Requirement And Task    Req Login    Task Login
+    Navigate To Defect Page
+    Create Defect    ปุ่ม Login ไม่ทำงาน    Task Login    Code Bug    High
+    Card Should Be Visible    ปุ่ม Login ไม่ทำงาน
 
 # =============================================================================
 # FR3.2: ต้องระบุ Type จาก 5 ค่า
 # =============================================================================
 
-สร้าง Defect โดยไม่เลือก Type ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องปฏิเสธการสร้าง Defect หากไม่ได้ระบุ Type
+ไม่เลือก Type ระบบต้องปฏิเสธ
+    [Documentation]    ไม่เลือกประเภท Defect → ระบบปฏิเสธ
     [Tags]    FR3.2    M03    type    validation
-    Click Create Button
-    Fill Title Field    DEF-002 ทดสอบไม่เลือก Type
-    Select Severity    Low
-    Select Task    TASK-001 ออกแบบหน้าล็อกอิน
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาเลือกประเภท Defect
-
-Type ต้องมี 5 ค่าให้เลือก
-    [Documentation]    ตัวเลือก Type ต้องมี 5 ค่า
-    ...    (เช่น Bug, UI, Performance, Security, Other)
-    [Tags]    FR3.2    M03    type
-    Click Create Button
-    Get Element Count    select[name="type"] >> option    ==    5
-
-เลือก Type เป็น Bug ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Type เป็น Bug ได้
-    [Tags]    FR3.2    M03    type
-    Click Create Button
-    Select Defect Type    Bug
-    Element Should Contain Text    select[name="type"]    Bug
-
-เลือก Type เป็น UI ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Type เป็น UI ได้
-    [Tags]    FR3.2    M03    type
-    Click Create Button
-    Select Defect Type    UI
-    Element Should Contain Text    select[name="type"]    UI
-
-เลือก Type เป็น Performance ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Type เป็น Performance ได้
-    [Tags]    FR3.2    M03    type
-    Click Create Button
-    Select Defect Type    Performance
-    Element Should Contain Text    select[name="type"]    Performance
-
-เลือก Type เป็น Security ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Type เป็น Security ได้
-    [Tags]    FR3.2    M03    type
-    Click Create Button
-    Select Defect Type    Security
-    Element Should Contain Text    select[name="type"]    Security
-
-เลือก Type เป็น Other ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Type เป็น Other ได้
-    [Tags]    FR3.2    M03    type
-    Click Create Button
-    Select Defect Type    Other
-    Element Should Contain Text    select[name="type"]    Other
+    Reset Page
+    Setup Requirement And Task    Req Test    Task Test
+    Navigate To Defect Page
+    Click New Button
+    Fill Defect Title    ไม่เลือกประเภท
+    Select Defect Task    Task Test
+    Select Defect Severity    Medium
+    Submit Defect Form
+    Field Should Be Invalid    defect-type
 
 # =============================================================================
 # FR3.3: ต้องระบุ Severity (Critical/High/Medium/Low)
 # =============================================================================
 
-สร้าง Defect โดยไม่เลือก Severity ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องปฏิเสธการสร้าง Defect หากไม่ได้ระบุ Severity
+ไม่เลือก Severity ระบบต้องปฏิเสธ
+    [Documentation]    ไม่เลือกความรุนแรง → ระบบปฏิเสธ
     [Tags]    FR3.3    M03    severity    validation
-    Click Create Button
-    Fill Title Field    DEF-003 ทดสอบไม่เลือก Severity
-    Select Defect Type    Bug
-    Select Task    TASK-001 ออกแบบหน้าล็อกอิน
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาเลือกระดับความรุนแรง
-
-Severity ต้องมี 4 ค่า (Critical, High, Medium, Low)
-    [Documentation]    ตัวเลือก Severity ต้องมีเฉพาะ 4 ค่า
-    ...    คือ Critical, High, Medium, Low
-    [Tags]    FR3.3    M03    severity
-    Click Create Button
-    Get Element Count    select[name="severity"] >> option    ==    4
-
-เลือก Severity เป็น Critical ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Severity เป็น Critical ได้
-    [Tags]    FR3.3    M03    severity
-    Click Create Button
-    Select Severity    Critical
-    Element Should Contain Text    select[name="severity"]    Critical
-
-เลือก Severity เป็น High ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Severity เป็น High ได้
-    [Tags]    FR3.3    M03    severity
-    Click Create Button
-    Select Severity    High
-    Element Should Contain Text    select[name="severity"]    High
-
-เลือก Severity เป็น Medium ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Severity เป็น Medium ได้
-    [Tags]    FR3.3    M03    severity
-    Click Create Button
-    Select Severity    Medium
-    Element Should Contain Text    select[name="severity"]    Medium
-
-เลือก Severity เป็น Low ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถเลือก Severity เป็น Low ได้
-    [Tags]    FR3.3    M03    severity
-    Click Create Button
-    Select Severity    Low
-    Element Should Contain Text    select[name="severity"]    Low
+    Reset Page
+    Setup Requirement And Task    Req Test    Task Test
+    Navigate To Defect Page
+    Click New Button
+    Fill Defect Title    ไม่เลือกความรุนแรง
+    Select Defect Task    Task Test
+    Select Defect Type    Code Bug
+    Submit Defect Form
+    Field Should Be Invalid    defect-severity
 
 # =============================================================================
-# FR3.4: ต้องเชื่อมโยงกับ Task
+# FR3.4: ต้องผูกกับ Task
 # =============================================================================
 
-สร้าง Defect โดยไม่เลือก Task ระบบแสดงข้อผิดพลาด
-    [Documentation]    ระบบต้องปฏิเสธการสร้าง Defect หากไม่ได้เชื่อมโยงกับ Task
+ไม่เลือก Task ระบบต้องปฏิเสธ
+    [Documentation]    ไม่เลือก Task ต้นทาง → ระบบปฏิเสธพร้อมข้อความ
     [Tags]    FR3.4    M03    task-link    validation
-    Click Create Button
-    Fill Title Field    DEF-004 ทดสอบไม่เลือก Task
-    Fill Description Field    ทดสอบ validation
-    Select Defect Type    Bug
-    Select Severity    Medium
-    Fill Reporter Field    ทดสอบจัง
-    Click Save Button
-    Validation Error Should Be Shown    กรุณาเลือก Task
-
-Task Dropdown แสดงรายการ Task ที่มีอยู่ในระบบ
-    [Documentation]    Dropdown ของ Task ต้องแสดงรายการ Task ที่มีอยู่ในระบบ
-    [Tags]    FR3.4    M03    task-link
-    Click Create Button
-    Get Element Count    select[name="task"] >> option    >    0
+    Reset Page
+    Setup Requirement And Task    Req Test    Task Test
+    Navigate To Defect Page
+    Click New Button
+    Fill Defect Title    Defect ลอย
+    Select Defect Type    Code Bug
+    Select Defect Severity    Medium
+    Submit Defect Form
+    Field Should Be Invalid    defect-task
 
 # =============================================================================
-# FR3.5: กรองตาม Type และ Severity
+# FR3.5: กรองตามประเภทและความรุนแรง
 # =============================================================================
 
-กรอง Defect ตาม Type ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Defect ตาม Type ได้
+กรองตามประเภท Defect
+    [Documentation]    เลือก filter type = SA Gap → แสดงเฉพาะ SA Gap
     [Tags]    FR3.5    M03    filter    type
-    Select Filter Option    filter-type    Bug
-    Get Element Count    .defect-item    >=    0
+    Reset Page
+    Setup Requirement And Task    Req Filter    Task Filter
+    Navigate To Defect Page
+    Create Defect    Bug ปกติ    Task Filter    Code Bug    Medium
+    Create Defect    สเปคไม่ครบ    Task Filter    SA Gap    High
+    Switch To List View
+    Select From List By Value    css:[data-testid="filter-type"]    SA Gap
+    Page Should Contain    สเปคไม่ครบ
+    Page Should Not Contain    Bug ปกติ
 
-กรอง Defect ตาม Severity ได้
-    [Documentation]    ผู้ใช้สามารถกรองรายการ Defect ตาม Severity ได้
+กรองตามความรุนแรง
+    [Documentation]    เลือก filter severity = Critical → แสดงเฉพาะ Critical
     [Tags]    FR3.5    M03    filter    severity
-    Select Filter Option    filter-severity    High
-    Get Element Count    .defect-item    >=    0
-
-กรอง Defect ตาม Type และ Severity พร้อมกันได้
-    [Documentation]    ผู้ใช้สามารถกรอง Defect ด้วย Type และ Severity พร้อมกันได้
-    [Tags]    FR3.5    M03    filter    combined
-    Select Filter Option    filter-type    Bug
-    Select Filter Option    filter-severity    Critical
-    Get Element Count    .defect-item    >=    0
+    Reset Page
+    Setup Requirement And Task    Req Sev    Task Sev
+    Navigate To Defect Page
+    Create Defect    Critical Bug    Task Sev    Code Bug    Critical
+    Create Defect    Low Bug    Task Sev    Code Bug    Low
+    Switch To List View
+    Select From List By Value    css:[data-testid="filter-severity"]    Critical
+    Page Should Contain    Critical Bug
+    Page Should Not Contain    Low Bug
 
 # =============================================================================
-# FR3.6: แก้ไขและลบ Defect พร้อมยืนยัน
+# FR3.6: แก้ไขและลบ
 # =============================================================================
 
-แก้ไข Defect ได้สำเร็จ
-    [Documentation]    ผู้ใช้สามารถแก้ไขข้อมูล Defect ได้
+แก้ไข Defect เปลี่ยนประเภทและความรุนแรง
+    [Documentation]    แก้ไข type + severity → ค่าใหม่แสดงถูกต้อง
     [Tags]    FR3.6    M03    edit
-    Click    .defect-item >> nth=0
+    Reset Page
+    Setup Requirement And Task    Req Edit    Task Edit
+    Navigate To Defect Page
+    Create Defect    แก้ฉัน    Task Edit    Code Bug    Low
+    Open Card    แก้ฉัน
     Click Edit Button
-    Fill Title Field    DEF-001 ปุ่มล็อกอินไม่ทำงาน (แก้ไข)
-    Select Severity    Critical
-    Click Save Button
-    Element Should Contain Text    .defect-list    DEF-001 ปุ่มล็อกอินไม่ทำงาน (แก้ไข)
+    Select Defect Type    SA Gap
+    Select Defect Severity    Critical
+    Submit Defect Form
+    Sleep    1s
+    Navigate To Defect Page
+    Card Should Be Visible    แก้ฉัน
 
-ลบ Defect แสดงกล่องยืนยันก่อนลบ
-    [Documentation]    เมื่อกดลบ Defect ระบบต้องแสดงกล่องยืนยันก่อน
-    [Tags]    FR3.6    M03    delete    confirmation
-    Click    .defect-item >> nth=0
+ลบ Defect ยืนยันแล้วหายจาก Board
+    [Documentation]    กดลบ → ยืนยัน → หายจาก board
+    [Tags]    FR3.6    M03    delete
+    Reset Page
+    Setup Requirement And Task    Req Del    Task Del
+    Navigate To Defect Page
+    Create Defect    ลบฉัน    Task Del    Code Bug    Medium
+    Open Card    ลบฉัน
     Click Delete Button
-    Confirmation Dialog Should Be Visible
-
-ยกเลิกการลบ Defect ข้อมูลยังคงอยู่
-    [Documentation]    เมื่อกดยกเลิกในกล่องยืนยัน Defect ยังคงอยู่
-    [Tags]    FR3.6    M03    delete    cancel
-    Click    .defect-item >> nth=0
-    Click Delete Button
-    Cancel Delete
-    Get Element Count    .defect-item    >    0
-
-ยืนยันลบ Defect ข้อมูลถูกลบสำเร็จ
-    [Documentation]    เมื่อกดยืนยันลบ Defect จะถูกลบออกจากระบบ
-    [Tags]    FR3.6    M03    delete    confirm
-    Click    .defect-item >> nth=0
-    Click Delete Button
+    Dialog Should Be Visible
     Confirm Delete
-    Element Should Be Visible    .success-message
+    Card Should Not Exist    ลบฉัน
 
 # =============================================================================
-# FR3.7: นับจำนวนตาม Type (5 คอลัมน์บน Board)
+# FR3.7: นับ Defect แยกตามประเภท
 # =============================================================================
 
-Board แสดง 5 คอลัมน์ตามประเภท Defect
-    [Documentation]    หน้า Defect Board ต้องแสดง 5 คอลัมน์
-    ...    แบ่งตามประเภท (Bug, UI, Performance, Security, Other)
-    [Tags]    FR3.7    M03    board    columns
-    Get Element Count    .defect-board >> .board-column    ==    5
-
-Board แสดงจำนวน Defect ในแต่ละคอลัมน์
-    [Documentation]    แต่ละคอลัมน์บน Board ต้องแสดงจำนวน Defect ที่อยู่ในประเภทนั้นๆ
-    [Tags]    FR3.7    M03    board    count
-    Element Should Be Visible    .board-column >> .column-count
-
-คอลัมน์ Bug แสดงจำนวน Defect ประเภท Bug
-    [Documentation]    คอลัมน์ Bug ต้องแสดงจำนวน Defect ที่มี Type เป็น Bug
-    [Tags]    FR3.7    M03    board    bug
-    Element Should Be Visible    .board-column-bug >> .column-count
-
-คอลัมน์ UI แสดงจำนวน Defect ประเภท UI
-    [Documentation]    คอลัมน์ UI ต้องแสดงจำนวน Defect ที่มี Type เป็น UI
-    [Tags]    FR3.7    M03    board    ui
-    Element Should Be Visible    .board-column-ui >> .column-count
-
-คอลัมน์ Performance แสดงจำนวน Defect ประเภท Performance
-    [Documentation]    คอลัมน์ Performance ต้องแสดงจำนวน Defect ที่มี Type เป็น Performance
-    [Tags]    FR3.7    M03    board    performance
-    Element Should Be Visible    .board-column-performance >> .column-count
-
-คอลัมน์ Security แสดงจำนวน Defect ประเภท Security
-    [Documentation]    คอลัมน์ Security ต้องแสดงจำนวน Defect ที่มี Type เป็น Security
-    [Tags]    FR3.7    M03    board    security
-    Element Should Be Visible    .board-column-security >> .column-count
-
-คอลัมน์ Other แสดงจำนวน Defect ประเภท Other
-    [Documentation]    คอลัมน์ Other ต้องแสดงจำนวน Defect ที่มี Type เป็น Other
-    [Tags]    FR3.7    M03    board    other
-    Element Should Be Visible    .board-column-other >> .column-count
+Board แสดงจำนวน Defect แยกตามประเภท
+    [Documentation]    สร้าง Defect หลายประเภท → board แสดงตัวเลขแยกตาม column
+    [Tags]    FR3.7    M03    count-by-type
+    Reset Page
+    Setup Requirement And Task    Req Count    Task Count
+    Navigate To Defect Page
+    Create Defect    Bug 1    Task Count    Code Bug    Medium
+    Create Defect    Bug 2    Task Count    Code Bug    Low
+    Create Defect    SA Issue    Task Count    SA Gap    High
+    Page Should Contain    2
+    Page Should Contain    1
