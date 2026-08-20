@@ -1,4 +1,6 @@
 import { ModulePage, type ModulePageConfig } from "../../shared/components/ModulePage";
+import { DndBoardView } from "../../shared/components/DndBoardView";
+import { DndBoardCard } from "../../shared/components/DndBoardCard";
 import { RequirementForm } from "./RequirementForm";
 import { requirementsRepo } from "./requirements.repo";
 import { tasksRepo } from "../tasks/tasks.repo";
@@ -25,7 +27,7 @@ import {
  * (ตัดออกตาม Out of Scope) จึงใช้ field ที่มีอยู่จริงจัดกลุ่มแทน
  */
 export function RequirementBoard() {
-  const { requirements, tasks, defects, currentUserId } = useData();
+  const { requirements, tasks, defects, currentUserId, refresh } = useData();
 
   const config: ModulePageConfig<Requirement> = {
     icon: "◎",
@@ -129,7 +131,7 @@ export function RequirementBoard() {
             trace.tasks.length === 0 ? (
               <p>ยังไม่มี Task — Requirement นี้ยังไม่ถูกแตกเป็นงาน</p>
             ) : (
-              <ul className="trace-list">
+              <ul className="list-none m-0 p-0 flex flex-col gap-3">
                 {trace.tasks.map((task) => (
                   <li key={task.id}>
                     {task.title} · {task.role} · {userName(task.assigneeId)}
@@ -144,7 +146,7 @@ export function RequirementBoard() {
             trace.defects.length === 0 ? (
               <p>ยังไม่พบ Defect</p>
             ) : (
-              <ul className="trace-list">
+              <ul className="list-none m-0 p-0 flex flex-col gap-3">
                 {trace.defects.map((defect) => (
                   <li key={defect.id}>
                     {defect.title} · {defect.type} · {defect.severity}
@@ -154,6 +156,60 @@ export function RequirementBoard() {
             ),
         },
       ];
+    },
+
+    renderBoard: ({ items, onOpenItem, onAdd }) => {
+      const groups = PRIORITIES.map((priority) => ({
+        key: priority,
+        label: priority,
+        color: PRIORITY_COLORS[priority] ?? ("gray" as const),
+        items: items.filter((item) => item.priority === priority),
+      }));
+
+      function handleMoveItem(itemId: string, _fromGroup: string, toGroup: string): void {
+        const req = requirements.find((r) => r.id === itemId);
+        if (!req) return;
+        const newPriority = toGroup as Priority;
+        if (!PRIORITIES.includes(newPriority)) return;
+        requirementsRepo.update(req.id, {
+          title: req.title,
+          description: req.description,
+          category: req.category,
+          priority: newPriority,
+          ownerId: req.ownerId,
+        });
+        refresh();
+      }
+
+      return (
+        <DndBoardView
+          groups={groups}
+          testId="board"
+          onAdd={onAdd}
+          onMoveItem={handleMoveItem}
+          renderCard={(item) => {
+            const taskCount = countTasksForRequirement(item.id, tasks);
+            const trace = traceForward(item.id, tasks, defects);
+            return (
+              <DndBoardCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                warning={taskCount === 0 ? "⚠ ยังไม่มี Task" : undefined}
+                onOpen={() => onOpenItem(item)}
+                testId={`card-${item.id}`}
+                meta={
+                  <>
+                    <span>{item.category}</span>
+                    <span>{userName(item.ownerId)}</span>
+                    <span>{taskCount} Tasks · {trace.defects.length} Defects</span>
+                  </>
+                }
+              />
+            );
+          }}
+        />
+      );
     },
 
     renderForm: ({ existing, groupKey, onDone, onCancel }) => (

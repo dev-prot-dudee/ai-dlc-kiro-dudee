@@ -1,26 +1,35 @@
+import { useDroppable } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import type { ReactNode } from "react";
 import { columnStyle, type StatusColor } from "../status-colors";
 
-export interface BoardColumnProps {
-  /** ชื่อสถานะ — แสดงเป็นตัวอักษรเสมอ ไม่ใช่สื่อด้วยสีเพียงอย่างเดียว (NFR5) */
+export interface DndBoardColumnProps {
+  id: string;
   label: string;
   color: StatusColor;
-  /** จำนวนการ์ดใน column นี้ */
   count: number;
+  itemIds: string[];
   onAdd?: () => void;
   children: ReactNode;
   testId?: string;
 }
 
-export function BoardColumn({
+/**
+ * Column ที่รับการลาก — ใช้ useDroppable + SortableContext
+ */
+export function DndBoardColumn({
+  id,
   label,
   color,
   count,
+  itemIds,
   onAdd,
   children,
   testId,
-}: BoardColumnProps) {
+}: DndBoardColumnProps) {
+  const { setNodeRef, isOver } = useDroppable({ id });
   const style = columnStyle(color);
+
   return (
     <section
       className="w-full sm:w-column sm:flex-shrink-0 flex flex-col gap-3"
@@ -43,7 +52,18 @@ export function BoardColumn({
           {count}
         </span>
       </header>
-      {children}
+
+      <div
+        ref={setNodeRef}
+        className={`flex flex-col gap-3 min-h-[60px] rounded p-1 transition-colors duration-fast ${
+          isOver ? "bg-primary/[.05] ring-2 ring-primary/20" : ""
+        }`}
+      >
+        <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
+          {children}
+        </SortableContext>
+      </div>
+
       {onAdd !== undefined && (
         <button
           type="button"

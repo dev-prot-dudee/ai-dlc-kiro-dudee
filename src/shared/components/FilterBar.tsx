@@ -21,10 +21,12 @@ export interface FilterBarProps {
  */
 export function FilterBar({ filters }: FilterBarProps) {
   return (
-    <div className="filter-bar">
+    <div className="flex flex-wrap gap-4 mb-5">
       {filters.map((filter) => (
-        <div className="filter-bar__field" key={filter.id}>
-          <label htmlFor={filter.id}>{filter.label}</label>
+        <div className="flex flex-col gap-1" key={filter.id}>
+          <label htmlFor={filter.id} className="text-caption text-neutral-300 font-semibold">
+            {filter.label}
+          </label>
           <select
             id={filter.id}
             value={filter.value}
