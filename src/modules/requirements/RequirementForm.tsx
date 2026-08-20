@@ -70,7 +70,7 @@ export function RequirementForm({
   }
 
   return (
-    <form className="form" onSubmit={submit} noValidate>
+    <form className="flex flex-col gap-5 max-w-[640px]" onSubmit={submit} noValidate>
       <Field id="req-title" label="หัวข้อ" required error={errors["title"]}>
         <input
           id="req-title"
@@ -135,12 +135,12 @@ export function RequirementForm({
       </Field>
 
       {errors["form"] !== undefined && (
-        <p className="field__error" role="alert">
+        <p className="text-danger text-caption" role="alert">
           {errors["form"]}
         </p>
       )}
 
-      <div className="form__actions">
+      <div className="flex gap-3">
         <button type="submit" className="btn-primary" data-testid="req-submit">
           {existing ? "บันทึกการแก้ไข" : "สร้าง Requirement"}
         </button>

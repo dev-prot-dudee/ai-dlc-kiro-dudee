@@ -75,13 +75,13 @@ export function DefectForm({
   // FR3.4 — ถ้ายังไม่มี Task เลย ก็สร้าง Defect ไม่ได้ตามกฎ
   if (tasks.length === 0) {
     return (
-      <div className="alert" role="alert">
-        <p className="alert__title">ยังสร้าง Defect ไม่ได้</p>
-        <p>
+      <div className="border border-danger bg-danger-light rounded px-5 py-4 my-5" role="alert">
+        <p className="font-semibold m-0 mb-2">ยังสร้าง Defect ไม่ได้</p>
+        <p className="m-0">
           Defect ทุกตัวต้องผูกกับ Task อย่างน้อย 1 ตัว ยังไม่มี Task ในระบบ กรุณาสร้าง Task
           ก่อน
         </p>
-        <button type="button" className="btn-secondary" onClick={onCancel}>
+        <button type="button" className="btn-secondary mt-3" onClick={onCancel}>
           กลับ
         </button>
       </div>
@@ -96,7 +96,7 @@ export function DefectForm({
   }
 
   return (
-    <form className="form" onSubmit={submit} noValidate>
+    <form className="flex flex-col gap-5 max-w-[640px]" onSubmit={submit} noValidate>
       <Field id="defect-title" label="หัวข้อ" required error={errors["title"]}>
         <input
           id="defect-title"
@@ -177,12 +177,12 @@ export function DefectForm({
       </Field>
 
       {errors["form"] !== undefined && (
-        <p className="field__error" role="alert">
+        <p className="text-danger text-caption" role="alert">
           {errors["form"]}
         </p>
       )}
 
-      <div className="form__actions">
+      <div className="flex gap-3">
         <button type="submit" className="btn-primary" data-testid="defect-submit">
           {existing ? "บันทึกการแก้ไข" : "สร้าง Defect"}
         </button>

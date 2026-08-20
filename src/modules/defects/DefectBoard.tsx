@@ -1,4 +1,6 @@
 import { ModulePage, type ModulePageConfig } from "../../shared/components/ModulePage";
+import { DndBoardView } from "../../shared/components/DndBoardView";
+import { DndBoardCard } from "../../shared/components/DndBoardCard";
 import { DefectForm } from "./DefectForm";
 import { defectsRepo } from "./defects.repo";
 import { useData } from "../../shared/DataContext";
@@ -24,7 +26,7 @@ import { traceBackward } from "../../shared/traceability";
  * เช่นถ้า SA Gap สูง แปลว่าปัญหาอยู่ที่การเขียนสเปค ไม่ใช่ที่การเขียนโค้ด
  */
 export function DefectBoard() {
-  const { requirements, tasks, defects, currentUserId } = useData();
+  const { requirements, tasks, defects, currentUserId, refresh } = useData();
 
   const config: ModulePageConfig<Defect> = {
     icon: "◆",
@@ -85,7 +87,7 @@ export function DefectBoard() {
         meta: (
           <>
             <span
-              className="badge"
+              className="inline-flex items-center gap-1 px-3 py-0.5 rounded text-caption font-semibold"
               style={{ background: columnStyle(severityColor).bg }}
             >
               {item.severity}
@@ -130,7 +132,7 @@ export function DefectBoard() {
         {
           title: "สายย้อนกลับถึงต้นทาง",
           body: (
-            <ul className="trace-list">
+            <ul className="list-none m-0 p-0 flex flex-col gap-3">
               <li>
                 <strong>Task:</strong>{" "}
                 {trace.task
@@ -147,6 +149,65 @@ export function DefectBoard() {
           ),
         },
       ];
+    },
+
+    renderBoard: ({ items, onOpenItem, onAdd }) => {
+      const groups = DEFECT_TYPES.map((type) => ({
+        key: type,
+        label: type,
+        color: DEFECT_TYPE_COLORS[type] ?? ("gray" as const),
+        items: items.filter((item) => item.type === type),
+      }));
+
+      function handleMoveItem(itemId: string, _fromGroup: string, toGroup: string): void {
+        const defect = defects.find((d) => d.id === itemId);
+        if (!defect) return;
+        const newType = toGroup as DefectType;
+        if (!DEFECT_TYPES.includes(newType)) return;
+        defectsRepo.update(defect.id, {
+          title: defect.title,
+          description: defect.description,
+          taskId: defect.taskId,
+          type: newType,
+          severity: defect.severity,
+          reporterId: defect.reporterId,
+        });
+        refresh();
+      }
+
+      return (
+        <DndBoardView
+          groups={groups}
+          testId="board"
+          onAdd={onAdd}
+          onMoveItem={handleMoveItem}
+          renderCard={(item) => {
+            const trace = traceBackward(item, tasks, requirements);
+            const severityColor = SEVERITY_COLORS[item.severity] ?? "gray";
+            return (
+              <DndBoardCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                onOpen={() => onOpenItem(item)}
+                testId={`card-${item.id}`}
+                meta={
+                  <>
+                    <span
+                      className="inline-flex items-center gap-1 px-3 py-0.5 rounded text-caption font-semibold"
+                      style={{ background: columnStyle(severityColor).bg }}
+                    >
+                      {item.severity}
+                    </span>
+                    <span>{userName(item.reporterId)}</span>
+                    <span>✓ {trace.task?.title ?? "(Task ถูกลบแล้ว)"}</span>
+                  </>
+                }
+              />
+            );
+          }}
+        />
+      );
     },
 
     renderForm: ({ existing, groupKey, onDone, onCancel }) => (

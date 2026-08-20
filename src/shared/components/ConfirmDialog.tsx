@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 
 export interface ConfirmDialogProps {
   title: string;
-  /** ข้อความอธิบายผลของการยืนยัน เช่น จำนวนที่จะกำพร้า (FR4.4, FR4.5) */
   message: string;
   confirmLabel: string;
   onConfirm: () => void;
@@ -12,8 +11,7 @@ export interface ConfirmDialogProps {
 /**
  * กล่องยืนยันก่อนลบ (FR1.6, FR2.5, FR3.6)
  *
- * ปิดด้วย Escape ได้ และย้าย focus เข้ากล่องเมื่อเปิด เพื่อให้ผู้ใช้ keyboard
- * ไม่หลุดไปอยู่หลังกล่อง (NFR5)
+ * ปิดด้วย Escape ได้ และย้าย focus เข้ากล่องเมื่อเปิด (NFR5)
  */
 export function ConfirmDialog({
   title,
@@ -34,19 +32,27 @@ export function ConfirmDialog({
   }, [onCancel]);
 
   return (
-    <div className="dialog-backdrop" role="presentation">
+    <div
+      className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-5 z-modal backdrop-blur-[4px]"
+      role="presentation"
+    >
       <div
-        className="dialog"
+        className="bg-white rounded-t-[16px] sm:rounded shadow-modal p-6 sm:p-8 w-full sm:max-w-[440px] flex flex-col gap-4 sm:gap-5"
         role="dialog"
         aria-modal="true"
         aria-labelledby="confirm-title"
         aria-describedby="confirm-message"
       >
-        <h2 className="dialog__title" id="confirm-title">
+        <h2
+          className="m-0 font-display text-h3 font-semibold leading-[32px] text-neutral-600"
+          id="confirm-title"
+        >
           {title}
         </h2>
-        <p id="confirm-message">{message}</p>
-        <div className="dialog__actions">
+        <p className="text-body text-neutral-400" id="confirm-message">
+          {message}
+        </p>
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
           <button
             ref={cancelRef}
             type="button"
