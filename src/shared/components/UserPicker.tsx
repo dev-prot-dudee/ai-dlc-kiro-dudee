@@ -8,13 +8,12 @@ export interface UserPickerProps {
 /**
  * FR5.1 — เลือกว่ากำลังใช้งานในฐานะใคร
  *
- * นี่ไม่ใช่การยืนยันตัวตน (constraint C3) ใครก็เลือกเป็นใครได้ ดูความเสี่ยง R1
- * ใน requirements — ข้อมูลจากรอบนี้จึงห้ามนำไปคำนวณ KPI รายคน
+ * นี่ไม่ใช่การยืนยันตัวตน (constraint C3)
  */
 export function UserPicker({ value, onChange }: UserPickerProps) {
   return (
-    <div className="field">
-      <label className="field__label visually-hidden" htmlFor="user-picker">
+    <div className="flex flex-col gap-2">
+      <label className="visually-hidden" htmlFor="user-picker">
         ผู้ใช้ปัจจุบัน
       </label>
       <select
@@ -29,7 +28,7 @@ export function UserPicker({ value, onChange }: UserPickerProps) {
           </option>
         ))}
       </select>
-      <span className="field__hint">
+      <span className="text-neutral-300 text-caption">
         ไม่ใช่การยืนยันตัวตน — ใช้ระบุผู้รายงานและผู้รับผิดชอบเท่านั้น
       </span>
     </div>

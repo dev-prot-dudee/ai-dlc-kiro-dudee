@@ -57,13 +57,13 @@ export function TaskForm({
   // FR2.2 — ถ้ายังไม่มี Requirement เลย ก็สร้าง Task ไม่ได้ตามกฎ
   if (requirements.length === 0) {
     return (
-      <div className="alert" role="alert">
-        <p className="alert__title">ยังสร้าง Task ไม่ได้</p>
-        <p>
+      <div className="border border-danger bg-danger-light rounded px-5 py-4 my-5" role="alert">
+        <p className="font-semibold m-0 mb-2">ยังสร้าง Task ไม่ได้</p>
+        <p className="m-0">
           Task ทุกตัวต้องผูกกับ Requirement อย่างน้อย 1 ตัว ยังไม่มี Requirement ในระบบ
           กรุณาสร้าง Requirement ก่อน
         </p>
-        <button type="button" className="btn-secondary" onClick={onCancel}>
+        <button type="button" className="btn-secondary mt-3" onClick={onCancel}>
           กลับ
         </button>
       </div>
@@ -71,7 +71,7 @@ export function TaskForm({
   }
 
   return (
-    <form className="form" onSubmit={submit} noValidate>
+    <form className="flex flex-col gap-5 max-w-[640px]" onSubmit={submit} noValidate>
       <Field id="task-title" label="หัวข้อ" required error={errors["title"]}>
         <input
           id="task-title"
@@ -134,12 +134,12 @@ export function TaskForm({
       </Field>
 
       {errors["form"] !== undefined && (
-        <p className="field__error" role="alert">
+        <p className="text-danger text-caption" role="alert">
           {errors["form"]}
         </p>
       )}
 
-      <div className="form__actions">
+      <div className="flex gap-3">
         <button type="submit" className="btn-primary" data-testid="task-submit">
           {existing ? "บันทึกการแก้ไข" : "สร้าง Task"}
         </button>

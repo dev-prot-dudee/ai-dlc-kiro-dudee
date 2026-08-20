@@ -11,17 +11,14 @@ export interface FieldProps {
 
 /**
  * ห่อ input หนึ่งช่องพร้อม label ที่ผูกกับ id จริง (NFR5)
- *
- * ข้อความ error ผูกกับ input ด้วย aria-describedby ผ่าน id ที่ตั้งชื่อไว้แน่นอน
- * เพื่อให้ screen reader อ่านเหตุผลที่ถูกปฏิเสธ ไม่ใช่แค่รู้ว่าผิด
  */
 export function Field({ id, label, required, hint, error, children }: FieldProps) {
   return (
-    <div className="field">
-      <label className="field__label" htmlFor={id}>
+    <div className="flex flex-col gap-2">
+      <label className="font-semibold text-small text-neutral-400" htmlFor={id}>
         {label}
         {required === true && (
-          <span aria-hidden="true" style={{ color: "var(--color-danger)" }}>
+          <span aria-hidden="true" className="text-danger">
             {" *"}
           </span>
         )}
@@ -29,12 +26,12 @@ export function Field({ id, label, required, hint, error, children }: FieldProps
       </label>
       {children}
       {hint !== undefined && (
-        <span className="field__hint" id={`${id}-hint`}>
+        <span className="text-neutral-300 text-caption" id={`${id}-hint`}>
           {hint}
         </span>
       )}
       {error !== undefined && (
-        <span className="field__error" id={`${id}-error`} role="alert">
+        <span className="text-danger text-caption" id={`${id}-error`} role="alert">
           {error}
         </span>
       )}

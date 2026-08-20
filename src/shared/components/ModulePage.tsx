@@ -8,6 +8,7 @@ import { BoardCard } from "./BoardCard";
 import { ListView, type ListColumn } from "./ListView";
 import { EmptyState } from "./EmptyState";
 import { ConfirmDialog } from "./ConfirmDialog";
+import { Drawer } from "./Drawer";
 import { downloadExport, importAll } from "../storage";
 import { useData } from "../DataContext";
 import type { Entity } from "../repository";
@@ -28,19 +29,15 @@ export interface ModulePageConfig<T extends Entity> {
   title: string;
   subtitle: string;
   newLabel: string;
-  /** ข้อความเมื่อยังไม่มีข้อมูลเลย */
   emptyMessage: string;
   items: T[];
-  /** ข้อความที่ค้นหาจะถูกเทียบกับค่านี้ */
   searchText: (item: T) => string;
   filters: (state: Record<string, string>, set: (id: string, v: string) => void) => FilterSpec[];
-  /** กรองรายการตามค่าของตัวกรอง */
   applyFilters: (items: T[], state: Record<string, string>) => T[];
   groups: (items: T[]) => BoardGroup<T>[];
   card: (item: T) => CardContent;
   listColumns: ListColumn<T>[];
   detail: (item: T) => DetailRow[];
-  /** ส่วนแสดงสายเชื่อมโยงในหน้ารายละเอียด */
   traceSections?: (item: T) => { title: string; body: ReactNode }[];
   renderForm: (args: {
     existing?: T;
@@ -48,10 +45,14 @@ export interface ModulePageConfig<T extends Entity> {
     onDone: () => void;
     onCancel: () => void;
   }) => ReactNode;
-  /** ข้อความยืนยันก่อนลบ รวมจำนวนลูกที่จะกำพร้า (FR4.4, FR4.5) */
+  /** Optional custom board renderer (e.g. DnD board for Tasks) */
+  renderBoard?: (args: {
+    items: T[];
+    onOpenItem: (item: T) => void;
+    onAdd: (groupKey: string) => void;
+  }) => ReactNode;
   deleteMessage: (item: T) => string;
   onDelete: (item: T, cascade: boolean) => void;
-  /** เมื่อมีลูก ให้เสนอทางเลือกลบตามด้วย */
   hasChildren?: (item: T) => boolean;
 }
 
@@ -63,10 +64,6 @@ type Screen<T> =
 
 /**
  * หน้าจอของ module หนึ่งตัว — ใช้ร่วมกันทั้ง Requirements, Tasks และ Defects
- *
- * ทั้งสาม module มีรูปแบบหน้าจอเหมือนกันทุกอย่าง (board/list, ฟอร์ม,
- * รายละเอียด, ยืนยันก่อนลบ) ต่างกันแค่ field และวิธีจัดกลุ่ม จึงรวมเป็นตัวเดียว
- * แล้วให้แต่ละ module ส่ง config เข้ามา
  */
 export function ModulePage<T extends Entity>({ config }: { config: ModulePageConfig<T> }) {
   const { refresh, error, setError } = useData();
@@ -115,14 +112,19 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
     <PageHeader icon={config.icon} title={config.title} subtitle={config.subtitle} />
   );
 
-  if (screen.kind === "create" || screen.kind === "edit") {
-    return (
-      <div className="main__scroll">
-        {header}
-        <h2 className="detail__section-title">
-          {screen.kind === "edit" ? "แก้ไขรายการ" : `สร้าง ${config.newLabel}`}
-        </h2>
-        {config.renderForm({
+  // Drawer สำหรับ create/edit — แสดงทับ board/list/detail โดยไม่เปลี่ยนหน้า
+  const drawerOpen = screen.kind === "create" || screen.kind === "edit";
+  const drawerTitle =
+    screen.kind === "edit" ? "แก้ไขรายการ" : `สร้าง ${config.newLabel}`;
+
+  const drawer = (
+    <Drawer
+      isOpen={drawerOpen}
+      onClose={() => setScreen(screen.kind === "create" || screen.kind === "edit" ? { kind: "list" } : screen)}
+      title={drawerTitle}
+    >
+      {drawerOpen &&
+        config.renderForm({
           existing: screen.kind === "edit" ? screen.item : undefined,
           groupKey: screen.kind === "create" ? screen.groupKey : undefined,
           onDone: () => {
@@ -131,16 +133,15 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
           },
           onCancel: () => setScreen({ kind: "list" }),
         })}
-      </div>
-    );
-  }
+    </Drawer>
+  );
 
   if (screen.kind === "detail") {
     const item = screen.item;
     return (
-      <div className="main__scroll">
+      <div className="flex-1 overflow-auto px-4 sm:px-8 md:px-12 pb-8 md:pb-12">
         {header}
-        <div className="form__actions">
+        <div className="flex flex-wrap gap-3">
           <button
             type="button"
             className="btn-secondary"
@@ -166,20 +167,22 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
           </button>
         </div>
 
-        <section className="detail__section">
-          <dl className="detail__meta">
+        <section className="mt-6 sm:mt-8">
+          <dl className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-5 gap-y-2 sm:gap-y-3 m-0">
             {config.detail(item).map((row) => (
               <div key={row.label} style={{ display: "contents" }}>
-                <dt>{row.label}</dt>
-                <dd>{row.value}</dd>
+                <dt className="text-neutral-300 text-small">{row.label}</dt>
+                <dd className="m-0 text-small">{row.value}</dd>
               </div>
             ))}
           </dl>
         </section>
 
         {config.traceSections?.(item).map((section) => (
-          <section className="detail__section" key={section.title}>
-            <h2 className="detail__section-title">{section.title}</h2>
+          <section className="mt-6 sm:mt-8" key={section.title}>
+            <h2 className="font-display text-body sm:text-h3 font-semibold leading-[25px] sm:leading-[32px] m-0 mb-3 sm:mb-4 text-neutral-600">
+              {section.title}
+            </h2>
             {section.body}
           </section>
         ))}
@@ -195,22 +198,27 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
             onCancel={() => setPendingDelete(null)}
           />
         )}
+
+        {drawer}
       </div>
     );
   }
 
   return (
-    <div className="main__scroll">
+    <div className="flex-1 overflow-auto px-4 sm:px-8 md:px-12 pb-8 md:pb-12">
       {header}
 
       {error !== null && (
-        <div className="alert" role="alert">
-          <p className="alert__title">เกิดข้อผิดพลาด</p>
-          <p>{error}</p>
+        <div
+          className="border border-danger bg-danger-light rounded px-5 py-4 my-5"
+          role="alert"
+        >
+          <p className="font-semibold m-0 mb-2">เกิดข้อผิดพลาด</p>
+          <p className="m-0">{error}</p>
         </div>
       )}
 
-      <div className="view-bar">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-neutral-100 pb-3 mb-4 sm:mb-5">
         <ViewTabs value={view} onChange={setView} />
         <Toolbar
           search={search}
@@ -231,24 +239,32 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
           onAction={() => setScreen({ kind: "create" })}
         />
       ) : view === "board" ? (
-        <BoardView
-          groups={config.groups(visible)}
-          testId="board"
-          onAdd={(groupKey) => setScreen({ kind: "create", groupKey })}
-          renderCard={(item) => {
-            const content = config.card(item);
-            return (
-              <BoardCard
-                key={item.id}
-                title={content.title}
-                meta={content.meta}
-                warning={content.warning}
-                onOpen={() => setScreen({ kind: "detail", item })}
-                testId={`card-${item.id}`}
-              />
-            );
-          }}
-        />
+        config.renderBoard ? (
+          config.renderBoard({
+            items: visible,
+            onOpenItem: (item) => setScreen({ kind: "detail", item }),
+            onAdd: (groupKey) => setScreen({ kind: "create", groupKey }),
+          })
+        ) : (
+          <BoardView
+            groups={config.groups(visible)}
+            testId="board"
+            onAdd={(groupKey) => setScreen({ kind: "create", groupKey })}
+            renderCard={(item) => {
+              const content = config.card(item);
+              return (
+                <BoardCard
+                  key={item.id}
+                  title={content.title}
+                  meta={content.meta}
+                  warning={content.warning}
+                  onOpen={() => setScreen({ kind: "detail", item })}
+                  testId={`card-${item.id}`}
+                />
+              );
+            }}
+          />
+        )
       ) : (
         <ListView
           columns={config.listColumns}
@@ -269,6 +285,8 @@ export function ModulePage<T extends Entity>({ config }: { config: ModulePageCon
           onCancel={() => setPendingDelete(null)}
         />
       )}
+
+      {drawer}
     </div>
   );
 }
