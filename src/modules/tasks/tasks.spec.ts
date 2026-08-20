@@ -147,4 +147,36 @@ describe("Task Management", () => {
       expect(trace.requirement?.id).toBe(req.id);
     });
   });
+
+  describe("Cascade Delete — ลบ Task แล้ว Defect ต้องหายตาม (FR4.5)", () => {
+    it("เมื่อลบ Task ที่มี Defect ผูกอยู่ ต้องลบ Defect ผ่าน removeWhere ตามไปด้วย", () => {
+      const req = makeReq();
+      const task = tasksRepo.create(draft({ requirementId: req.id }));
+      const defect1 = defectsRepo.create({
+        title: "ปัญหาที่ 1",
+        description: "",
+        taskId: task.id,
+        type: "Code Bug",
+        severity: "Medium",
+        reporterId: "u4",
+      });
+      const defect2 = defectsRepo.create({
+        title: "ปัญหาที่ 2",
+        description: "",
+        taskId: task.id,
+        type: "SA Gap",
+        severity: "High",
+        reporterId: "u4",
+      });
+
+      // Cascade: ลบ Defect ที่ผูกกับ Task ก่อน แล้วลบ Task
+      defectsRepo.removeWhere((d) => d.taskId === task.id);
+      tasksRepo.remove(task.id);
+
+      expect(tasksRepo.find(task.id)).toBeNull();
+      expect(defectsRepo.find(defect1.id)).toBeNull();
+      expect(defectsRepo.find(defect2.id)).toBeNull();
+      expect(defectsRepo.list()).toHaveLength(0);
+    });
+  });
 });

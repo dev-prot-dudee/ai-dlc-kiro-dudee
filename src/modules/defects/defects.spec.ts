@@ -118,6 +118,37 @@ describe("Defect Tracking", () => {
     });
   });
 
+  describe("Cascade Delete — ลบ Task แล้ว Defect ต้องหายตาม (FR4.5)", () => {
+    it("เมื่อลบ Task ที่มี Defect ผูกอยู่ ต้องลบ Defect ตามไปด้วย", () => {
+      const task = makeTask();
+      const defect1 = defectsRepo.create(draft({ taskId: task.id, title: "ปัญหาที่ 1" }));
+      const defect2 = defectsRepo.create(draft({ taskId: task.id, title: "ปัญหาที่ 2" }));
+
+      // Cascade delete: ลบ Defect ที่ผูกกับ Task นี้ก่อน แล้วลบ Task
+      defectsRepo.removeWhere((d) => d.taskId === task.id);
+      tasksRepo.remove(task.id);
+
+      expect(tasksRepo.find(task.id)).toBeNull();
+      expect(defectsRepo.find(defect1.id)).toBeNull();
+      expect(defectsRepo.find(defect2.id)).toBeNull();
+      expect(defectsRepo.list()).toHaveLength(0);
+    });
+  });
+
+  describe("การบังคับระบุผู้รายงาน (reporterId)", () => {
+    it("เมื่อไม่ระบุ reporterId ต้องถูกปฏิเสธพร้อมข้อความที่อธิบายเหตุผล", () => {
+      const task = makeTask();
+      try {
+        defectsRepo.create(draft({ taskId: task.id, reporterId: "" }));
+        expect.unreachable("ควรถูกปฏิเสธก่อนถึงบรรทัดนี้");
+      } catch (error) {
+        expect((error as ValidationError).field).toBe("reporterId");
+        expect((error as ValidationError).message).toContain("ผู้รายงาน");
+      }
+      expect(defectsRepo.list()).toHaveLength(0);
+    });
+  });
+
   describe("การนับแยกตามประเภททั้ง 5 (FR3.7)", () => {
     it("ต้องนับครบทุกประเภท โดยประเภทที่ไม่มีต้องเป็น 0 ไม่ใช่หายไป", () => {
       const task = makeTask();

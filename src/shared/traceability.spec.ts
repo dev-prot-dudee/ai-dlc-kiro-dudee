@@ -6,6 +6,8 @@ import {
   countOrphansOnRequirementDelete,
   countOrphansOnTaskDelete,
   countDefectsByType,
+  countTasksForRequirement,
+  countDefectsForTask,
 } from "./traceability";
 import { makeRequirement, makeTask, makeDefect } from "./test-factories";
 import { DEFECT_TYPES } from "./types";
@@ -117,6 +119,41 @@ describe("สายเชื่อมโยง Requirement → Task → Defect",
       expect(counts["Test Escape"]).toBe(0);
       expect(counts["NFR Violation"]).toBe(0);
       expect(Object.keys(counts)).toHaveLength(DEFECT_TYPES.length);
+    });
+  });
+
+  describe("การนับ Task ที่ผูกกับ Requirement (countTasksForRequirement)", () => {
+    it("ต้องนับเฉพาะ Task ที่ผูกกับ Requirement ที่ระบุ", () => {
+      const tasks = [
+        makeTask({ requirementId: "r1" }),
+        makeTask({ requirementId: "r1" }),
+        makeTask({ requirementId: "r2" }),
+      ];
+      expect(countTasksForRequirement("r1", tasks)).toBe(2);
+      expect(countTasksForRequirement("r2", tasks)).toBe(1);
+    });
+
+    it("เมื่อไม่มี Task ผูกอยู่เลย ต้องคืน 0", () => {
+      const tasks = [makeTask({ requirementId: "r1" })];
+      expect(countTasksForRequirement("ไม่มีใครผูก", tasks)).toBe(0);
+    });
+  });
+
+  describe("การนับ Defect ที่ผูกกับ Task (countDefectsForTask)", () => {
+    it("ต้องนับเฉพาะ Defect ที่ผูกกับ Task ที่ระบุ", () => {
+      const defects = [
+        makeDefect({ taskId: "t1" }),
+        makeDefect({ taskId: "t1" }),
+        makeDefect({ taskId: "t1" }),
+        makeDefect({ taskId: "t2" }),
+      ];
+      expect(countDefectsForTask("t1", defects)).toBe(3);
+      expect(countDefectsForTask("t2", defects)).toBe(1);
+    });
+
+    it("เมื่อไม่มี Defect ผูกอยู่เลย ต้องคืน 0", () => {
+      const defects = [makeDefect({ taskId: "t1" })];
+      expect(countDefectsForTask("ไม่มี", defects)).toBe(0);
     });
   });
 });
